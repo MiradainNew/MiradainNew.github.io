@@ -1,0 +1,410 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Strategic Research | NAME Analytical</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css" />
+    </noscript>
+
+<style>
+
+/* Keep same institutional styling */
+
+:root {
+    --primary-navy: #1a2a3a;
+    --accent-gold: #c5a059;
+    --slate-grey: #4a5568;
+    --light-bg: #f8fafc;
+    --border-color: #e2e8f0;
+}
+
+body {
+    font-family: "Inter", "Helvetica Neue", sans-serif;
+    color: var(--slate-grey);
+}
+
+/* Header */
+
+#header h1 {
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--primary-navy);
+}
+
+#header p {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8em;
+    color: var(--accent-gold);
+    font-weight: 600;
+}
+
+/* Section Headers */
+
+.main.special header.major h2 {
+    font-weight: 700;
+    color: var(--primary-navy);
+    border-bottom: 3px solid var(--accent-gold);
+    display: inline-block;
+    padding-bottom: 12px;
+}
+
+/* Research Cards */
+
+article.research-card {
+
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+
+    padding: 2.5rem;
+
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
+
+}
+
+article.research-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 20px 25px -5px rgba(0, 0, 0, 0.05);
+
+    border-top: 3px solid var(--primary-navy);
+
+}
+
+.dd-badge {
+
+    font-size: 10px;
+    font-weight: 800;
+
+    color: var(--accent-gold);
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    border: 1px solid var(--accent-gold);
+
+    padding: 4px 8px;
+
+    width: fit-content;
+
+    margin-bottom: 15px;
+
+    display: inline-block;
+
+}
+
+h3 {
+    margin: 0;
+    font-weight: 700;
+    color: var(--primary-navy);
+}
+
+/* Grid */
+
+.grid-2 {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 30px;
+
+}
+
+/* Footer */
+
+#footer {
+    background: var(--primary-navy);
+    color: #fff;
+    padding: 4rem 0;
+}
+
+</style>
+
+</head>
+
+<body class="is-preload">
+
+<div id="wrapper">
+
+<!-- HEADER -->
+
+<header id="header">
+
+    <h1>Strategic Research</h1>
+
+    <p>Institutional Quantitative Publications</p>
+
+</header>
+
+<!-- NAVIGATION -->
+
+<nav id="nav">
+
+<ul>
+
+<li>
+<a href="index.html">
+Home
+</a>
+</li>
+
+<li>
+<a href="research.html"
+   class="active">
+Research
+</a>
+</li>
+
+<li>
+<a href="index.html#cta">
+Inquiries
+</a>
+</li>
+
+</ul>
+
+</nav>
+
+<!-- MAIN CONTENT -->
+
+<div id="main">
+
+<section
+id="research"
+class="main special"
+style="background: var(--light-bg); padding: 4rem 2rem;"
+>
+
+<header class="major">
+
+<h2>Published Research</h2>
+
+<p>
+Quantitative studies on macro regimes,
+valuation dynamics, and systematic risk.
+</p>
+
+</header>
+
+<div class="grid-2">
+
+<!-- PAPER 1 -->
+
+<article class="research-card">
+
+<span class="dd-badge">
+
+Regime Detection
+
+</span>
+
+<h3>
+
+Trading USD/JPY Cycles
+
+</h3>
+
+<p style="font-size: 0.9rem; margin: 15px 0;">
+
+Applying clustering methods to detect structural
+transitions between carry-trade dominance and
+mean-reversion regimes since 1996.
+
+</p>
+
+<ul class="actions small">
+
+<li>
+
+<a href="papers/usdjpy_cycles.pdf"
+   class="button small">
+
+Download Paper
+
+</a>
+
+</li>
+
+</ul>
+
+</article>
+
+<!-- PAPER 2 -->
+
+<article class="research-card">
+
+<span class="dd-badge">
+
+Quantitative Study
+
+</span>
+
+<h3>
+
+JPY Carry Trade & PPP
+
+</h3>
+
+<p style="font-size: 0.9rem; margin: 15px 0;">
+
+A valuation-driven framework linking carry trade
+dynamics to purchasing power parity thresholds.
+
+</p>
+
+<ul class="actions small">
+
+<li>
+
+<a href="papers/jpy_carry_ppp.pdf"
+   class="button small">
+
+Download Paper
+
+</a>
+
+</li>
+
+</ul>
+
+</article>
+
+<!-- PAPER 3 -->
+
+<article class="research-card">
+
+<span class="dd-badge">
+
+Macro Framework
+
+</span>
+
+<h3>
+
+The Triangle Trap
+
+</h3>
+
+<p style="font-size: 0.9rem; margin: 15px 0;">
+
+A structural model examining the interaction
+between fiscal pressure, interest rate normalization,
+and global carry positioning.
+
+</p>
+
+<ul class="actions small">
+
+<li>
+
+<a href="papers/triangle_trap.pdf"
+   class="button small">
+
+Download Paper
+
+</a>
+
+</li>
+
+</ul>
+
+</article>
+
+<!-- TEMPLATE COPY BLOCK -->
+
+<!-- Duplicate this block per paper -->
+
+</div>
+
+</section>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer id="footer">
+
+<section>
+
+<h2>NAME Analytical</h2>
+
+<p>
+
+Independent Quantitative Research & Advisory Lab.<br />
+Specialized in Risk-Driven Investment Methodologies.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Contact</h2>
+
+<dl class="alt">
+
+<dt>Email</dt>
+
+<dd>
+
+<a href="mailto:info@nameanalytical.com">
+
+info@nameanalytical.com
+
+</a>
+
+</dd>
+
+<dt>Phone</dt>
+
+<dd>
+
++32 489 97 61 16
+
+</dd>
+
+</dl>
+
+</section>
+
+<p class="copyright">
+
+&copy; NAME Analytical. All Rights Reserved.
+
+</p>
+
+</footer>
+
+</div>
+
+<!-- SCRIPTS -->
+
+<script src="assets/js/jquery.min.js"></script>
+
+<script src="assets/js/jquery.scrollex.min.js"></script>
+
+<script src="assets/js/jquery.scrolly.min.js"></script>
+
+<script src="assets/js/browser.min.js"></script>
+
+<script src="assets/js/breakpoints.min.js"></script>
+
+<script src="assets/js/util.js"></script>
+
+<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
