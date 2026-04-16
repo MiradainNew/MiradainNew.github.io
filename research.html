@@ -1,467 +1,798 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
-    <title>Strategic Research | NAME Analytical</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Research Library | NAME Analytical</title>
 
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <noscript>
-        <link rel="stylesheet" href="assets/css/noscript.css" />
-    </noscript>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
-<style>
+    <style>
+        /* ── RESET & TOKENS ── shared with index.html ────────── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* Institutional Branding */
+        :root {
+            --navy:   #10202f;
+            --navy2:  #1a3248;
+            --gold:   #b8924a;
+            --gold-lt:#d4b07a;
+            --chalk:  #f5f3ef;
+            --white:  #ffffff;
+            --ink:    #2c3e50;
+            --muted:  #6b7c8d;
+            --border: #dde3ea;
 
-:root {
-    --primary-navy: #1a2a3a;
-    --accent-gold: #c5a059;
-    --slate-grey: #4a5568;
-    --light-bg: #f8fafc;
-    --border-color: #e2e8f0;
-}
+            --ff-display: 'Cormorant Garamond', Georgia, serif;
+            --ff-body:    'DM Sans', Helvetica, sans-serif;
 
-body {
-    font-family: "Inter", "Helvetica Neue", sans-serif;
-    color: var(--slate-grey);
-}
+            --max: 1160px;
+            --pad: clamp(1.5rem, 5vw, 4rem);
+        }
 
-/* Header */
+        html { scroll-behavior: smooth; }
 
-#header .logo img {
-    width: 70px;
-    margin-bottom: 10px;
-}
+        body {
+            font-family: var(--ff-body);
+            font-weight: 300;
+            color: var(--ink);
+            background: var(--white);
+            line-height: 1.7;
+            font-size: 15px;
+        }
 
-#header h1 {
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    font-weight: 800;
-    color: var(--primary-navy);
-}
+        a { color: inherit; text-decoration: none; }
 
-#header p {
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 0.8em;
-    color: var(--accent-gold);
-    font-weight: 600;
-}
+        /* ── NAV (identical to index) ──────────────────────── */
+        nav#topnav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--pad);
+            height: 68px;
+        }
 
-/* Section Headers */
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
 
-.main.special header.major h2 {
-    font-weight: 700;
-    color: var(--primary-navy);
-    border-bottom: 3px solid var(--accent-gold);
-    display: inline-block;
-    padding-bottom: 12px;
-}
+        .nav-brand img { width: 34px; height: auto; opacity: 0.92; }
 
-/* Research Cards */
+        .nav-brand-text { display: flex; flex-direction: column; line-height: 1.1; }
 
-article.research-card {
+        .nav-brand-text .firm {
+            font-family: var(--ff-display);
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: var(--navy);
+            text-transform: uppercase;
+        }
 
-    background: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: 2px;
+        .nav-brand-text .tagline {
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 400;
+        }
 
-    padding: 2.5rem;
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.4rem;
+            list-style: none;
+        }
 
-    transition: transform 0.3s ease,
-                box-shadow 0.3s ease;
+        .nav-links a {
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 400;
+            transition: color 0.2s;
+        }
 
-}
+        .nav-links a:hover, .nav-links a.active { color: var(--navy); }
 
-article.research-card:hover {
+        .nav-links .nav-cta a {
+            color: var(--navy);
+            border: 1px solid var(--navy);
+            padding: 7px 18px;
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            transition: background 0.2s, color 0.2s;
+        }
 
-    transform: translateY(-5px);
+        .nav-links .nav-cta a:hover {
+            background: var(--navy);
+            color: var(--white);
+        }
 
-    box-shadow:
-        0 20px 25px -5px rgba(0, 0, 0, 0.05);
+        /* ── PAGE HERO ──────────────────────────────────────── */
+        #page-hero {
+            margin-top: 68px;
+            background: var(--navy);
+            padding: clamp(4rem, 9vw, 8rem) var(--pad) clamp(3rem, 6vw, 5rem);
+            position: relative;
+            overflow: hidden;
+        }
 
-    border-top: 3px solid var(--primary-navy);
+        #page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 80% 50%, rgba(184,146,74,0.07) 0%, transparent 55%);
+        }
 
-}
+        .page-hero-inner {
+            max-width: var(--max);
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: end;
+        }
 
-.dd-badge {
+        .page-eyebrow {
+            font-size: 0.64rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 400;
+            margin-bottom: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    font-size: 10px;
-    font-weight: 800;
+        .page-eyebrow::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 1px;
+            background: var(--gold);
+        }
 
-    color: var(--accent-gold);
+        .page-title {
+            font-family: var(--ff-display);
+            font-size: clamp(2.4rem, 4.5vw, 4rem);
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1.08;
+        }
 
-    letter-spacing: 2px;
+        .page-title em { font-style: italic; color: var(--gold-lt); }
 
-    text-transform: uppercase;
+        .page-desc {
+            font-size: 0.93rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.8;
+            align-self: end;
+        }
 
-    border: 1px solid var(--accent-gold);
+        /* ── FILTER BAR ─────────────────────────────────────── */
+        #filter-bar {
+            background: var(--chalk);
+            border-bottom: 1px solid var(--border);
+            padding: 0 var(--pad);
+        }
 
-    padding: 4px 8px;
+        .filter-inner {
+            max-width: var(--max);
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+        }
 
-    width: fit-content;
+        .filter-btn {
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            padding: 1.1rem 1.4rem;
+            font-family: var(--ff-body);
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: color 0.2s, border-color 0.2s;
+        }
 
-    margin-bottom: 15px;
+        .filter-btn:hover { color: var(--navy); }
+        .filter-btn.active { color: var(--navy); border-bottom-color: var(--gold); font-weight: 500; }
 
-    display: inline-block;
+        /* ── RESEARCH GRID ──────────────────────────────────── */
+        #research-grid {
+            background: var(--white);
+            padding: clamp(3rem, 6vw, 5rem) var(--pad);
+        }
 
-}
+        .grid-inner {
+            max-width: var(--max);
+            margin: 0 auto;
+        }
 
-h3 {
-    margin: 0;
-    font-weight: 700;
-    color: var(--primary-navy);
-}
+        .papers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
 
-/* Grid */
+        /* Featured card (spans 2 columns) */
+        .paper-card {
+            background: var(--white);
+            padding: 2.8rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            transition: background 0.25s;
+            position: relative;
+        }
 
-.grid-2 {
+        .paper-card:hover { background: var(--chalk); }
 
-    display: grid;
+        .paper-card.featured {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem;
+            align-items: center;
+            background: var(--navy);
+            padding: 3.5rem;
+        }
 
-    grid-template-columns:
-        repeat(auto-fit, minmax(300px, 1fr));
+        .paper-card.featured:hover { background: var(--navy2); }
 
-    gap: 30px;
+        .featured-label-col { display: flex; flex-direction: column; gap: 1.2rem; }
 
-}
+        .featured-body-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            justify-content: center;
+        }
 
-/* Footer */
+        .paper-tag {
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-#footer {
-    background: var(--primary-navy);
-    color: #fff;
-    padding: 4rem 0;
-}
+        .paper-tag::before {
+            content: '';
+            display: block;
+            width: 18px;
+            height: 1px;
+            background: var(--gold);
+        }
 
-</style>
+        .featured .paper-tag { color: var(--gold-lt); }
 
+        .paper-title {
+            font-family: var(--ff-display);
+            font-size: 1.65rem;
+            font-weight: 400;
+            color: var(--navy);
+            line-height: 1.2;
+        }
+
+        .featured .paper-title {
+            font-size: 2.2rem;
+            color: var(--white);
+            font-weight: 300;
+        }
+
+        .featured .paper-title em { font-style: italic; color: var(--gold-lt); }
+
+        .paper-abstract {
+            font-size: 0.86rem;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .featured .paper-abstract { color: rgba(255,255,255,0.6); }
+
+        .paper-meta {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .paper-meta-item {
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .featured .paper-meta-item { color: rgba(255,255,255,0.4); }
+
+        .paper-meta-item span {
+            color: var(--navy);
+            font-weight: 500;
+        }
+
+        .featured .paper-meta-item span { color: rgba(255,255,255,0.8); }
+
+        .btn {
+            display: inline-block;
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-weight: 400;
+            padding: 11px 26px;
+            cursor: pointer;
+            transition: all 0.22s;
+            border: none;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--navy);
+        }
+
+        .btn-gold:hover { background: var(--gold-lt); }
+
+        .btn-dark {
+            background: transparent;
+            color: var(--navy);
+            border: 1px solid var(--border);
+        }
+
+        .btn-dark:hover { border-color: var(--navy); }
+
+        .btn-outline-white {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline-white:hover {
+            border-color: var(--white);
+            background: rgba(255,255,255,0.06);
+        }
+
+        /* ── UPCOMING / NEWSLETTER ──────────────────────────── */
+        #newsletter {
+            background: var(--chalk);
+            padding: clamp(3.5rem, 7vw, 6rem) var(--pad);
+        }
+
+        .newsletter-inner {
+            max-width: var(--max);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .section-label {
+            font-size: 0.64rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 400;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .section-title {
+            font-family: var(--ff-display);
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 300;
+            color: var(--navy);
+            line-height: 1.15;
+        }
+
+        .section-title em { font-style: italic; color: var(--gold); }
+
+        .section-body {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.8;
+            margin-top: 1rem;
+        }
+
+        .upcoming-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border: 1px solid var(--border);
+            background: var(--white);
+        }
+
+        .upcoming-item {
+            padding: 1.5rem 1.8rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .upcoming-item:last-child { border-bottom: none; }
+
+        .upcoming-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            margin-top: 7px;
+            flex-shrink: 0;
+        }
+
+        .upcoming-dot.soon { background: var(--navy); }
+
+        .upcoming-text .up-title {
+            font-size: 0.88rem;
+            color: var(--navy);
+            font-weight: 400;
+            margin-bottom: 0.2rem;
+        }
+
+        .upcoming-text .up-status {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* ── FOOTER ─────────────────────────────────────────── */
+        footer#foot {
+            background: var(--navy);
+            color: rgba(255,255,255,0.55);
+            padding: clamp(3rem, 6vw, 5rem) var(--pad) 2.5rem;
+        }
+
+        .foot-inner { max-width: var(--max); margin: 0 auto; }
+
+        .foot-top {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .foot-brand {
+            font-family: var(--ff-display);
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--white);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        .foot-desc { font-size: 0.83rem; line-height: 1.7; }
+
+        .foot-col-title {
+            font-size: 0.63rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+        }
+
+        .foot-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+
+        .foot-links a {
+            font-size: 0.84rem;
+            color: rgba(255,255,255,0.55);
+            transition: color 0.2s;
+        }
+
+        .foot-links a:hover { color: var(--white); }
+
+        .foot-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+
+        .foot-bottom .gold { color: var(--gold); }
+
+        /* ── FADE ANIMATIONS ────────────────────────────────── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-up.visible { opacity: 1; transform: none; }
+
+        /* ── RESPONSIVE ─────────────────────────────────────── */
+        @media (max-width: 900px) {
+            .page-hero-inner,
+            .papers-grid,
+            .paper-card.featured,
+            .newsletter-inner,
+            .foot-top {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .paper-card.featured {
+                grid-column: auto;
+                padding: 2.2rem 1.8rem;
+            }
+
+            .nav-links .nav-cta { display: none; }
+            .nav-links { gap: 1.2rem; }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+        }
+    </style>
 </head>
+<body>
 
-<body class="is-preload">
-
-<div id="wrapper">
-
-<!-- HEADER -->
-
-<header id="header" class="alt">
-
-<a href="index.html" class="logo">
-    <img src="NAME_without_text1.png"
-         alt="NAME Analytical Logo" />
-</a>
-
-<h1>NAME Analytical</h1>
-
-<p>Strategic Research Library</p>
-
-</header>
-
-<!-- NAVIGATION -->
-
-<nav id="nav">
-
-<ul>
-
-<li>
-<a href="index.html">
-Home
-</a>
-</li>
-
-<li>
-<a href="research.html"
-   class="active">
-Research
-</a>
-</li>
-
-<li>
-<a href="index.html#cta">
-Inquiries
-</a>
-</li>
-
-</ul>
-
+<!-- ── NAV ──────────────────────────────────────────────── -->
+<nav id="topnav">
+    <div class="nav-brand">
+        <img src="NAME_without_text1.png" alt="NAME Analytical" />
+        <div class="nav-brand-text">
+            <span class="firm">NAME Analytical</span>
+            <span class="tagline">Independent Analytics. Institutional Rigor.</span>
+        </div>
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html#mission">About</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#process">Process</a></li>
+        <li><a href="research.html" class="active">Research</a></li>
+        <li class="nav-cta"><a href="index.html#contact">Inquiries</a></li>
+    </ul>
 </nav>
 
-<!-- MAIN CONTENT -->
-
-<div id="main">
-
-<section
-id="research"
-class="main special"
-style="background: var(--light-bg); padding: 4rem 2rem;"
->
-
-<header class="major">
-
-<h2>Published Research</h2>
-
-<p>
-Explore our growing library of
-<strong>institutional quantitative research papers</strong>
-covering macro regimes, valuation dynamics,
-and systematic risk.
-</p>
-
-</header>
-
-<div class="grid-2">
-
-<!-- PAPER 1 -->
-
-<article class="research-card">
-
-<span class="dd-badge">
-
-Regime Detection
-
-</span>
-
-<h3>
-
-Trading USD/JPY Cycles
-
-</h3>
-
-<p style="font-size: 0.9rem; margin: 15px 0;">
-
-Applying clustering methods to detect structural
-transitions between carry-trade dominance and
-mean-reversion regimes since 1996.
-
-</p>
-
-<ul class="actions small">
-
-<li>
-
-<a href="papers/usdjpy_cycles.pdf"
-   class="button small"
-   target="_blank">
-
-Open PDF
-
-</a>
-
-</li>
-
-</ul>
-
-</article>
-
-<!-- PAPER 2 -->
-
-<article class="research-card">
-
-<span class="dd-badge">
-
-Quantitative Study
-
-</span>
-
-<h3>
-
-JPY Carry Trade & PPP
-
-</h3>
-
-<p style="font-size: 0.9rem; margin: 15px 0;">
-
-A valuation-driven framework linking carry trade
-dynamics to purchasing power parity thresholds.
-
-</p>
-
-<ul class="actions small">
-
-<li>
-
-<a href="papers/jpy_carry_ppp.pdf"
-   class="button small"
-   target="_blank">
-
-Open PDF
-
-</a>
-
-</li>
-
-</ul>
-
-</article>
-
-<!-- PAPER 3 -->
-
-<article class="research-card">
-
-<span class="dd-badge">
-
-Global Inflation
-
-</span>
-
-<h3>
-
-How China's Producer Prices Transmit Inflation
-
-</h3>
-
-<p style="font-size: 0.9rem; margin: 15px 0;">
-
-A transmission framework examining how cost shocks
-within China's manufacturing complex propagate
-into Western inflation cycles.
-
-</p>
-
-<ul class="actions small">
-
-<li>
-
-<a href="papers/Inflation_Contagion.pdf"
-   class="button small"
-   target="_blank">
-
-Open PDF
-
-</a>
-
-</li>
-
-</ul>
-
-</article>
-
-<!-- PAPER 4 -->
-
-<article class="research-card">
-
-<span class="dd-badge">
-
-Macro Framework
-
-</span>
-
-<h3>
-
-The Triangle Trap
-
-</h3>
-
-<p style="font-size: 0.9rem; margin: 15px 0;">
-
-A structural model examining the interaction
-between fiscal pressure, interest rate normalization,
-and global carry positioning.
-
-</p>
-
-<ul class="actions small">
-
-<li>
-
-<a href="papers/Japan_Trap_Research.pdf"
-   class="button small"
-   target="_blank">
-
-Open PDF
-
-</a>
-
-</li>
-
-</ul>
-
-</article>
-
-<!-- TEMPLATE BLOCK -->
-
-<!-- Duplicate this block for future papers -->
-
+<!-- ── PAGE HERO ─────────────────────────────────────────── -->
+<div id="page-hero">
+    <div class="page-hero-inner">
+        <div>
+            <div class="page-eyebrow">Strategic Research Library</div>
+            <h1 class="page-title">Institutional<br><em>Quantitative Research</em></h1>
+        </div>
+        <p class="page-desc">
+            Original, peer-reviewed analytical frameworks covering macro regimes, valuation dynamics, currency cycles, and systematic risk — published for institutional investors.
+        </p>
+    </div>
 </div>
 
-</section>
-
+<!-- ── FILTER BAR ────────────────────────────────────────── -->
+<div id="filter-bar">
+    <div class="filter-inner">
+        <button class="filter-btn active" onclick="filterPapers('all', this)">All Research</button>
+        <button class="filter-btn" onclick="filterPapers('macro', this)">Macro Frameworks</button>
+        <button class="filter-btn" onclick="filterPapers('fx', this)">FX & Carry</button>
+        <button class="filter-btn" onclick="filterPapers('inflation', this)">Inflation</button>
+    </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ── RESEARCH PAPERS ───────────────────────────────────── -->
+<section id="research-grid">
+    <div class="grid-inner">
 
-<footer id="footer">
+        <div class="papers-grid" id="papers-grid">
 
-<section>
+            <!-- FEATURED: Latest / most prominent paper -->
+            <article class="paper-card featured fade-up" data-category="inflation">
+                <div class="featured-label-col">
+                    <div class="paper-tag">Global Inflation · Featured</div>
+                    <h2 class="paper-title">How China's Producer Prices<br><em>Transmit Inflation</em></h2>
+                    <div class="paper-meta">
+                        <div class="paper-meta-item">Category <span>Global Inflation</span></div>
+                        <div class="paper-meta-item">Format <span>PDF</span></div>
+                    </div>
+                    <div>
+                        <a href="papers/Inflation_Contagion.pdf" class="btn btn-gold" target="_blank">Download PDF</a>
+                    </div>
+                </div>
+                <div class="featured-body-col">
+                    <p class="paper-abstract">
+                        A transmission framework examining how cost shocks within China's manufacturing complex propagate into Western inflation cycles. The paper maps the structural channels — from factory-gate PPI to CPI in the US and European economies — and quantifies the lag structure and regime dependencies of this contagion mechanism.
+                    </p>
+                    <p class="paper-abstract" style="font-style:italic; font-size:0.82rem;">
+                        "The World Factory speaks first — Western central banks respond to echoes they don't always recognise."
+                    </p>
+                </div>
+            </article>
 
-<h2>NAME Analytical</h2>
+            <!-- PAPER 1 -->
+            <article class="paper-card fade-up" data-category="fx">
+                <div class="paper-tag">FX &amp; Carry · Quantitative Study</div>
+                <h3 class="paper-title">Trading USD/JPY Cycles</h3>
+                <p class="paper-abstract">
+                    Applying clustering methods to detect structural transitions between carry-trade dominance and mean-reversion regimes in USD/JPY since 1996. The framework identifies regime entry and exit signals with cross-validated out-of-sample precision.
+                </p>
+                <div class="paper-meta">
+                    <div class="paper-meta-item">Category <span>Regime Detection</span></div>
+                    <div class="paper-meta-item">Format <span>PDF</span></div>
+                </div>
+                <div>
+                    <a href="papers/usdjpy_cycles.pdf" class="btn btn-dark" target="_blank">Download PDF</a>
+                </div>
+            </article>
 
-<p>
+            <!-- PAPER 2 -->
+            <article class="paper-card fade-up" data-category="fx">
+                <div class="paper-tag">FX &amp; Carry · Valuation Framework</div>
+                <h3 class="paper-title">JPY Carry Trade &amp; PPP</h3>
+                <p class="paper-abstract">
+                    A valuation-driven framework linking carry trade dynamics to purchasing power parity thresholds. The paper establishes a model for identifying mean-reversion events and positions the yen's structural undervaluation within a macro-fundamental context.
+                </p>
+                <div class="paper-meta">
+                    <div class="paper-meta-item">Category <span>Quantitative Study</span></div>
+                    <div class="paper-meta-item">Format <span>PDF</span></div>
+                </div>
+                <div>
+                    <a href="papers/jpy_carry_ppp.pdf" class="btn btn-dark" target="_blank">Download PDF</a>
+                </div>
+            </article>
 
-Independent Quantitative Research & Advisory Lab.<br />
-Specialized in Risk-Driven Investment Methodologies.
+            <!-- PAPER 3 -->
+            <article class="paper-card fade-up" data-category="macro">
+                <div class="paper-tag">Macro Framework · Structural Analysis</div>
+                <h3 class="paper-title">The Triangle Trap</h3>
+                <p class="paper-abstract">
+                    A structural model examining the interaction between fiscal pressure, interest rate normalisation, and global carry positioning. The paper analyses the self-reinforcing dynamics of Japan's macro trilemma and its systemic spillover risks for global fixed income and FX.
+                </p>
+                <div class="paper-meta">
+                    <div class="paper-meta-item">Category <span>Macro Framework</span></div>
+                    <div class="paper-meta-item">Format <span>PDF</span></div>
+                </div>
+                <div>
+                    <a href="papers/Japan_Trap_Research.pdf" class="btn btn-dark" target="_blank">Download PDF</a>
+                </div>
+            </article>
 
-</p>
-
+        </div>
+    </div>
 </section>
 
-<section>
+<!-- ── UPCOMING / PIPELINE ────────────────────────────────── -->
+<section id="newsletter">
+    <div class="newsletter-inner">
+        <div class="fade-up">
+            <div class="section-label">Research Pipeline</div>
+            <h2 class="section-title">Upcoming<br><em>Publications</em></h2>
+            <p class="section-body">
+                Our research agenda is driven by macro regime shifts and institutional demand. New papers are released periodically across our core practice areas.
+            </p>
+            <br>
+            <a href="mailto:info@nameanalytical.com?subject=Research Access" class="btn btn-gold" style="margin-top:0.5rem;">Request Research Access</a>
+        </div>
 
-<h2>Contact</h2>
-
-<dl class="alt">
-
-<dt>Email</dt>
-
-<dd>
-
-<a href="mailto:info@nameanalytical.com">
-
-info@nameanalytical.com
-
-</a>
-
-</dd>
-
-<dt>Phone</dt>
-
-<dd>
-
-+32 489 97 61 16
-
-</dd>
-
-</dl>
-
+        <div class="upcoming-list fade-up">
+            <div class="upcoming-item">
+                <div class="upcoming-dot soon"></div>
+                <div class="upcoming-text">
+                    <div class="up-title">BMA Attribution Methodology — Technical White Paper</div>
+                    <div class="up-status">In preparation · Hedge Fund Analytics</div>
+                </div>
+            </div>
+            <div class="upcoming-item">
+                <div class="upcoming-dot"></div>
+                <div class="upcoming-text">
+                    <div class="up-title">Volatility Regime Surveillance — Cross-Asset Framework</div>
+                    <div class="up-status">Planned · Macro Allocation</div>
+                </div>
+            </div>
+            <div class="upcoming-item">
+                <div class="upcoming-dot"></div>
+                <div class="upcoming-text">
+                    <div class="up-title">Geopolitical Shock Impact on Asset Classes</div>
+                    <div class="up-status">Planned · Macro Risk</div>
+                </div>
+            </div>
+            <div class="upcoming-item">
+                <div class="upcoming-dot"></div>
+                <div class="upcoming-text">
+                    <div class="up-title">EUR/USD Fundamental Valuation Framework</div>
+                    <div class="up-status">Conceptual · FX Research</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
-<p class="copyright">
-
-&copy; NAME Analytical. All Rights Reserved.
-
-</p>
-
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer id="foot">
+    <div class="foot-inner">
+        <div class="foot-top">
+            <div>
+                <div class="foot-brand">NAME Analytical</div>
+                <p class="foot-desc">Independent Quantitative Research & Advisory Lab. Specialised in Risk-Driven Investment Methodologies and Hedge Fund Due Diligence.</p>
+            </div>
+            <div>
+                <div class="foot-col-title">Navigation</div>
+                <ul class="foot-links">
+                    <li><a href="index.html#mission">About</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="index.html#process">Methodology</a></li>
+                    <li><a href="research.html">Research</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="foot-col-title">Contact</div>
+                <ul class="foot-links">
+                    <li><a href="mailto:info@nameanalytical.com">info@nameanalytical.com</a></li>
+                    <li>+32 489 97 61 16</li>
+                    <li>Brussels, Belgium</li>
+                    <li><a href="https://www.nameanalytical.com">www.nameanalytical.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="foot-bottom">
+            <span>&copy; 2025 NAME Analytical. All Rights Reserved.</span>
+            <span class="gold">Independent Analytics. Institutional Rigor.</span>
+        </div>
+    </div>
 </footer>
 
-</div>
+<script>
+    // Filter functionality
+    function filterPapers(category, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
 
-<!-- SCRIPTS -->
+        document.querySelectorAll('.paper-card').forEach(card => {
+            const cat = card.dataset.category;
+            card.style.display = (category === 'all' || cat === category) ? '' : 'none';
+        });
+    }
 
-<script src="assets/js/jquery.min.js"></script>
+    // Scroll animations
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+                setTimeout(() => e.target.classList.add('visible'), i * 100);
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => obs.observe(el));
 
-<script src="assets/js/jquery.scrollex.min.js"></script>
-
-<script src="assets/js/jquery.scrolly.min.js"></script>
-
-<script src="assets/js/browser.min.js"></script>
-
-<script src="assets/js/breakpoints.min.js"></script>
-
-<script src="assets/js/util.js"></script>
-
-<script src="assets/js/main.js"></script>
-
+    // Nav shadow
+    const nav = document.getElementById('topnav');
+    window.addEventListener('scroll', () => {
+        nav.style.boxShadow = window.scrollY > 10 ? '0 2px 20px rgba(0,0,0,0.07)' : 'none';
+    });
+</script>
 </body>
-
 </html>

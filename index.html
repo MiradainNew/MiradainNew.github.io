@@ -1,268 +1,1026 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
-    <title>NAME Analytical | Institutional Quantitative Research</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NAME Analytical | Institutional Quantitative Research</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* Institutional Branding & Professional Polish */
+        /* ── RESET & TOKENS ────────────────────────────────────── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
         :root {
-            --primary-navy: #1a2a3a;
-            --accent-gold: #c5a059;
-            --slate-grey: #4a5568;
-            --light-bg: #f8fafc;
-            --border-color: #e2e8f0;
+            --navy:   #10202f;
+            --navy2:  #1a3248;
+            --gold:   #b8924a;
+            --gold-lt:#d4b07a;
+            --chalk:  #f5f3ef;
+            --white:  #ffffff;
+            --ink:    #2c3e50;
+            --muted:  #6b7c8d;
+            --border: #dde3ea;
+            --rule:   rgba(184,146,74,0.35);
+
+            --ff-display: 'Cormorant Garamond', Georgia, serif;
+            --ff-body:    'DM Sans', Helvetica, sans-serif;
+
+            --max: 1160px;
+            --pad: clamp(1.5rem, 5vw, 4rem);
         }
 
-        body { font-family: "Inter", "Helvetica Neue", sans-serif; color: var(--slate-grey); }
+        html { scroll-behavior: smooth; }
 
-        /* Logo and Header Styling */
-        #header .logo img {
-            width: 80px;
+        body {
+            font-family: var(--ff-body);
+            font-weight: 300;
+            color: var(--ink);
+            background: var(--white);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        img { display: block; max-width: 100%; }
+
+        /* ── NAV ───────────────────────────────────────────────── */
+        nav#topnav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--pad);
+            height: 68px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nav-brand img {
+            width: 34px;
             height: auto;
-            margin-bottom: 1rem;
-            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.1));
+            opacity: 0.92;
         }
 
-        #header h1 { 
-            letter-spacing: 5px; 
-            text-transform: uppercase; 
-            font-weight: 800; 
-            color: var(--primary-navy) !important; 
-            margin-top: 0.5rem;
+        .nav-brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
         }
 
-        #header p { 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            font-size: 0.8em; 
-            color: var(--accent-gold) !important;
+        .nav-brand-text .firm {
+            font-family: var(--ff-display);
+            font-size: 1.15rem;
             font-weight: 600;
+            letter-spacing: 0.06em;
+            color: var(--navy);
+            text-transform: uppercase;
         }
 
-        /* Nav Styling */
-        #nav ul li a { font-weight: 600; text-transform: uppercase; font-size: 0.75em; letter-spacing: 1px; }
-
-        /* Section Headers */
-        .main.special header.major h2 {
-            font-weight: 700;
-            color: var(--primary-navy);
-            border-bottom: 3px solid var(--accent-gold);
-            display: inline-block;
-            padding-bottom: 12px;
-            margin-bottom: 20px;
+        .nav-brand-text .tagline {
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 400;
         }
 
-        /* Service Cards & Research Articles */
-        .features li, article.research-card {
-            background: #ffffff !important;
-            border: 1px solid var(--border-color) !important;
-            border-radius: 2px !important;
-            padding: 2.5rem !important;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: left !important;
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.4rem;
             list-style: none;
         }
 
-        .features li:hover, article.research-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
-            border-top: 3px solid var(--primary-navy) !important;
-        }
-
-        .dd-badge {
-            font-size: 10px;
-            font-weight: 800;
-            color: var(--accent-gold);
-            letter-spacing: 2px;
+        .nav-links a {
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            border: 1px solid var(--accent-gold);
-            padding: 4px 8px;
-            width: fit-content;
-            margin-bottom: 15px;
-            display: inline-block;
+            color: var(--muted);
+            font-weight: 400;
+            transition: color 0.2s;
         }
 
-        h3 { margin: 0; font-weight: 700; color: var(--primary-navy); }
+        .nav-links a:hover { color: var(--navy); }
 
-        /* Bold Highlights */
-        b, strong { color: var(--primary-navy); font-weight: 600; }
+        .nav-links .nav-cta a {
+            color: var(--navy);
+            border: 1px solid var(--navy);
+            padding: 7px 18px;
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            transition: background 0.2s, color 0.2s;
+        }
 
-        #footer { background: var(--primary-navy); color: #fff; padding: 4rem 0; }
-        
-        .grid-2 {
+        .nav-links .nav-cta a:hover {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        /* ── HERO ──────────────────────────────────────────────── */
+        #hero {
+            margin-top: 68px;
+            background: var(--navy);
+            color: var(--white);
+            min-height: 78vh;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: 1fr 1fr;
+            align-items: stretch;
+            overflow: hidden;
+            position: relative;
         }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 70% 40%, rgba(184,146,74,0.08) 0%, transparent 60%),
+                linear-gradient(135deg, #10202f 0%, #1a3248 100%);
+        }
+
+        .hero-left {
+            position: relative;
+            z-index: 2;
+            padding: clamp(3rem, 8vw, 7rem) var(--pad);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .hero-eyebrow {
+            font-size: 0.65rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 400;
+            margin-bottom: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            display: block;
+            width: 28px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .hero-h1 {
+            font-family: var(--ff-display);
+            font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+            font-weight: 300;
+            line-height: 1.08;
+            letter-spacing: -0.01em;
+            color: var(--white);
+            margin-bottom: 1.8rem;
+        }
+
+        .hero-h1 em {
+            font-style: italic;
+            color: var(--gold-lt);
+        }
+
+        .hero-sub {
+            font-size: 0.92rem;
+            color: rgba(255,255,255,0.6);
+            max-width: 440px;
+            line-height: 1.75;
+            margin-bottom: 2.6rem;
+            font-weight: 300;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-weight: 400;
+            padding: 12px 28px;
+            cursor: pointer;
+            transition: all 0.22s;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--navy);
+            border: 1px solid var(--gold);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-lt);
+            border-color: var(--gold-lt);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--white);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .hero-right {
+            position: relative;
+            z-index: 2;
+            padding: clamp(3rem, 8vw, 7rem) var(--pad);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0;
+        }
+
+        .hero-stat-block {
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .hero-stat-block:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
+
+        .hero-stat-num {
+            font-family: var(--ff-display);
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: var(--gold-lt);
+            line-height: 1;
+            margin-bottom: 0.35rem;
+        }
+
+        .hero-stat-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+        }
+
+        /* ── SECTION UTILITY ───────────────────────────────────── */
+        section { padding: clamp(4rem, 8vw, 7rem) var(--pad); }
+
+        .container { max-width: var(--max); margin: 0 auto; }
+
+        .section-label {
+            font-size: 0.64rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 400;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .section-title {
+            font-family: var(--ff-display);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 300;
+            color: var(--navy);
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+
+        .section-title em { font-style: italic; color: var(--gold); }
+
+        .section-body {
+            font-size: 0.93rem;
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 560px;
+            margin-top: 1rem;
+        }
+
+        .rule { width: 48px; height: 2px; background: var(--gold); margin: 1.8rem 0; }
+
+        /* ── MISSION ───────────────────────────────────────────── */
+        #mission { background: var(--chalk); }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .mission-right {
+            display: flex;
+            flex-direction: column;
+            gap: 2.2rem;
+        }
+
+        .mission-point {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .mission-num {
+            font-family: var(--ff-display);
+            font-size: 2rem;
+            font-weight: 300;
+            color: rgba(184,146,74,0.25);
+            line-height: 1;
+            min-width: 2rem;
+            padding-top: 2px;
+        }
+
+        .mission-point-title {
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--navy);
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+        }
+
+        .mission-point-text {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* ── SERVICES ──────────────────────────────────────────── */
+        #services { background: var(--white); }
+
+        .services-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: end;
+            margin-bottom: 4rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2.8rem 2.2rem;
+            position: relative;
+            transition: background 0.25s;
+            cursor: default;
+        }
+
+        .service-card:hover {
+            background: var(--chalk);
+        }
+
+        .service-card:hover .service-arrow { opacity: 1; transform: translate(3px,-3px); }
+
+        .service-tag {
+            font-size: 0.62rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 400;
+            margin-bottom: 1.4rem;
+        }
+
+        .service-title {
+            font-family: var(--ff-display);
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--navy);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .service-text {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .service-arrow {
+            position: absolute;
+            top: 2.4rem;
+            right: 2.2rem;
+            font-size: 1.1rem;
+            color: var(--gold);
+            opacity: 0;
+            transition: opacity 0.25s, transform 0.25s;
+        }
+
+        /* ── RESEARCH STRIP ────────────────────────────────────── */
+        #research-strip {
+            background: var(--navy);
+            padding: clamp(3rem, 6vw, 5rem) var(--pad);
+        }
+
+        .research-strip-inner {
+            max-width: var(--max);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .research-strip-label {
+            font-size: 0.64rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .research-strip-label::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .research-strip-title {
+            font-family: var(--ff-display);
+            font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1.2;
+        }
+
+        .research-strip-sub {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 0.6rem;
+        }
+
+        /* ── PROCESS ───────────────────────────────────────────── */
+        #process { background: var(--chalk); }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-top: 3.5rem;
+        }
+
+        .process-step {
+            background: var(--chalk);
+            padding: 2.4rem 1.8rem;
+            position: relative;
+        }
+
+        .process-step-num {
+            font-family: var(--ff-display);
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: rgba(184,146,74,0.15);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .process-step-title {
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--navy);
+            font-weight: 500;
+            margin-bottom: 0.7rem;
+        }
+
+        .process-step-text {
+            font-size: 0.83rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* ── CONTACT ───────────────────────────────────────────── */
+        #contact { background: var(--white); }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .contact-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 1.6rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item-label {
+            font-size: 0.63rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-item-val {
+            font-size: 0.92rem;
+            color: var(--navy);
+        }
+
+        .contact-form-area {
+            background: var(--chalk);
+            padding: 3rem;
+            border: 1px solid var(--border);
+        }
+
+        .form-row { margin-bottom: 1.4rem; }
+
+        .form-row label {
+            display: block;
+            font-size: 0.65rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-row input,
+        .form-row textarea,
+        .form-row select {
+            width: 100%;
+            border: 1px solid var(--border);
+            background: var(--white);
+            padding: 10px 14px;
+            font-family: var(--ff-body);
+            font-size: 0.88rem;
+            color: var(--ink);
+            outline: none;
+            transition: border-color 0.2s;
+            -webkit-appearance: none;
+        }
+
+        .form-row input:focus,
+        .form-row textarea:focus,
+        .form-row select:focus {
+            border-color: var(--gold);
+        }
+
+        .form-row textarea { resize: vertical; min-height: 110px; }
+
+        .form-row select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7c8d'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
+
+        /* ── FOOTER ────────────────────────────────────────────── */
+        footer#foot {
+            background: var(--navy);
+            color: rgba(255,255,255,0.55);
+            padding: clamp(3rem, 6vw, 5rem) var(--pad) 2.5rem;
+        }
+
+        .foot-inner {
+            max-width: var(--max);
+            margin: 0 auto;
+        }
+
+        .foot-top {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .foot-brand {
+            font-family: var(--ff-display);
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--white);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        .foot-desc {
+            font-size: 0.83rem;
+            line-height: 1.7;
+        }
+
+        .foot-col-title {
+            font-size: 0.63rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+        }
+
+        .foot-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .foot-links a {
+            font-size: 0.84rem;
+            color: rgba(255,255,255,0.55);
+            transition: color 0.2s;
+        }
+
+        .foot-links a:hover { color: var(--white); }
+
+        .foot-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+
+        .foot-bottom .gold { color: var(--gold); }
+
+        /* ── RESPONSIVE ────────────────────────────────────────── */
+        @media (max-width: 900px) {
+            #hero, .mission-grid, .services-header,
+            .contact-grid, .foot-top {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            #hero { min-height: auto; }
+
+            .hero-right {
+                border-top: 1px solid rgba(255,255,255,0.08);
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            }
+
+            .hero-stat-block {
+                border: none;
+                padding: 1rem 0;
+                flex: 1 1 130px;
+            }
+
+            .services-grid, .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .research-strip-inner { grid-template-columns: 1fr; }
+
+            .nav-links { gap: 1.2rem; }
+            .nav-links .nav-cta { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .contact-form-area { padding: 2rem 1.5rem; }
+        }
+
+        /* ── SCROLL ANIMATIONS ─────────────────────────────────── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: none;
+        }
+
     </style>
 </head>
+<body>
 
-<body class="is-preload">
-
-<div id="wrapper">
-
-    <header id="header" class="alt">
-        <span class="logo"><img src="NAME_without_text1.png" alt="NAME Analytical Logo" /></span>
-        <h1>NAME Analytical</h1>
-        <p>Independent Analytics. Institutional Rigor.</p>
-    </header>
-
-    <nav id="nav">
-        <ul>
-            <li><a href="#intro" class="active">Methodology</a></li>
-            <li><a href="#first">Due Diligence</a></li>
-            <li><a href="#second">Macro Allocation</a></li>
-            <li><a href="research.html">Research</a></li>
-            <li><a href="#cta">Inquiries</a></li>
-        </ul>
-    </nav>
-
-    <div id="main">
-
-        <section id="intro" class="main">
-            <div class="spotlight">
-                <div class="content">
-                    <header class="major">
-                        <h2>Our Mission</h2>
-                    </header>
-                    <p>
-                        NAME Analytical is an independent quantitative research lab delivering 
-                        <b>rigorous, transparent, and reliable analytics</b> to institutional investors. 
-                        We design and back-test investment methodologies across asset classes, 
-                        bridging the gap between<b> economic raw </b> data,<b> asset allocation </b>,and the <b>risk</b> taken.
-                    </p>
-                </div>
-                <span class="image"><img src="Summary_picture2.png" alt="Institutional Research" /></span>
-            </div>
-        </section>
-
-        <section id="first" class="main special">
-            <header class="major">
-                <h2>Quantitative Due Diligence</h2>
-                <p>Our analysis transforms a standard <b>Fund Fact Sheet</b> into a comprehensive risk assessment.</p>
-            </header>
-
-            <ul class="features">
-                <li>
-                    <span class="dd-badge">Baseline Ingestion</span>
-                    <h3>Fact Sheet Analysis</h3>
-                    <p>The process begins with a simple <b>Fact Sheet</b>. We extract track record data to reconcile monthly returns with stated volatility and establecer a behavior profile.</p>
-                </li>
-                <li>
-                    <span class="dd-badge">Verification</span>
-                    <h3>Behavioral Validation</h3>
-                    <p>We move beyond the surface to isolate <b>regime dependencies</b> using stress events, revealing vulnerabilities hidden in benign market environments.</p>
-                </li>
-                <li>
-                    <span class="dd-badge">Differentiation</span>
-                    <h3>Universe Mapping</h3>
-                    <p>Benchmarking against curated peer groups to distinguish <b>genuine alpha</b> from beta-heavy approaches within the global hedge fund universe.</p>
-                </li>
-            </ul>
-        </section>
-
-        <section id="second" class="main special">
-            <header class="major">
-                <h2>Quantitative Macro Allocation</h2>
-                <p>Systematic gap analysis between financial pricing and macro-economic fundamentals.</p>
-            </header>
-
-            <ul class="features">
-                <li>
-                    <span class="dd-badge">Alpha Research</span>
-                    <h3>Fundamental Gaps</h3>
-                    <p>Detecting <b>valuation discrepancies</b> relative to macro fundamentals through cross-asset modeling and contrarian positioning.</p>
-                </li>
-                <li>
-                    <span class="dd-badge">Surveillance</span>
-                    <h3>Risk Monitoring</h3>
-                    <p>Surveillance of <b>volatility regimes</b> and risk-parity deviations to ensure alignment with shifting market dynamics.</p>
-                </li>
-            </ul>
-        </section>
-
-        <section class="main special">
-
-                <header class="major">
-                
-                <h2>Strategic Research</h2>
-                
-                <p>
-                Access our full library of institutional
-                quantitative publications.
-                </p>
-                
-                </header>
-                
-                <footer class="major">
-                
-                <ul class="actions special">
-                
-                <li>
-                
-                <a href="research.html"
-                   class="button primary">
-                
-                View Research Library
-                
-                </a>
-                
-                </li>
-                
-                </ul>
-                
-                </footer>
-                
-                </section>
-
-        <section id="cta" class="main special">
-            <header class="major">
-                <h2>Institutional Inquiries</h2>
-                <p>Access our research terminal or request bespoke fund due diligence.</p>
-            </header>
-            <footer class="major">
-                <ul class="actions special">
-                    <li><a href="mailto:inquiries@nameanalytical.com" class="button primary">Contact Analyst</a></li>
-                </ul>
-            </footer>
-        </section>
-
+<!-- ── NAV ──────────────────────────────────────────────── -->
+<nav id="topnav">
+    <div class="nav-brand">
+        <img src="NAME_without_text1.png" alt="NAME Analytical" />
+        <div class="nav-brand-text">
+            <span class="firm">NAME Analytical</span>
+            <span class="tagline">Independent Analytics. Institutional Rigor.</span>
+        </div>
     </div>
+    <ul class="nav-links">
+        <li><a href="#mission">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li class="nav-cta"><a href="#contact">Inquiries</a></li>
+    </ul>
+</nav>
 
-    <footer id="footer">
-        <section>
-            <h2>NAME Analytical</h2>
-            <p>Independent Quantitative Research & Advisory Lab.<br />
-            Specialized in Risk-Driven Investment Methodologies.</p>
-        </section>
-        <section>
-            <h2>Contact</h2>
-            <dl class="alt">
-                <dt>Email</dt>
-                <dd><a href="mailto:inquiries@nameanalytical.com">info@nameanalytical.com</a></dd>
-                <dt>Phone</dt>
-                <dd>+32 489 97 61 16</dd>
-            </dl>
-        </section>
-        <p class="copyright">&copy; NAME Analytical. All Rights Reserved.</p>
-    </footer>
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section id="hero">
+    <div class="hero-left">
+        <div class="hero-eyebrow">Independent Quantitative Research</div>
+        <h1 class="hero-h1">Where Data Meets<br><em>Institutional Precision</em></h1>
+        <p class="hero-sub">
+            Rigorous, transparent analytics for institutional investors. We bridge the gap between economic raw data, asset allocation, and the risk taken.
+        </p>
+        <div class="hero-actions">
+            <a href="#services" class="btn btn-primary">Our Capabilities</a>
+            <a href="research.html" class="btn btn-outline">Research Library</a>
+        </div>
+    </div>
+    <div class="hero-right">
+        <div class="hero-stat-block">
+            <div class="hero-stat-num">4</div>
+            <div class="hero-stat-label">Published Research Papers</div>
+        </div>
+        <div class="hero-stat-block">
+            <div class="hero-stat-num">2</div>
+            <div class="hero-stat-label">Core Practice Areas</div>
+        </div>
+        <div class="hero-stat-block">
+            <div class="hero-stat-num">BMA</div>
+            <div class="hero-stat-label">Proprietary Attribution Framework</div>
+        </div>
+        <div class="hero-stat-block">
+            <div class="hero-stat-num">Brussels</div>
+            <div class="hero-stat-label">Headquartered in Belgium</div>
+        </div>
+    </div>
+</section>
 
+<!-- ── MISSION ───────────────────────────────────────────── -->
+<section id="mission">
+    <div class="container">
+        <div class="mission-grid">
+            <div class="mission-left fade-up">
+                <div class="section-label">Our Mission</div>
+                <h2 class="section-title">Built on Analytical<br><em>Independence</em></h2>
+                <div class="rule"></div>
+                <p class="section-body">
+                    NAME Analytical is an independent quantitative research lab. We design and back-test investment methodologies across asset classes, delivering analysis that is rigorous, reproducible, and grounded in economic first principles.
+                </p>
+                <br>
+                <p class="section-body">
+                    Our work is governed by one discipline: let the data speak, and challenge it when it doesn't.
+                </p>
+            </div>
+            <div class="mission-right fade-up">
+                <div class="mission-point">
+                    <div class="mission-num">01</div>
+                    <div>
+                        <div class="mission-point-title">Quantitative Rigour</div>
+                        <div class="mission-point-text">Every methodology is back-tested, stress-tested, and documented with full transparency of assumptions and limitations.</div>
+                    </div>
+                </div>
+                <div class="mission-point">
+                    <div class="mission-num">02</div>
+                    <div>
+                        <div class="mission-point-title">Economic Grounding</div>
+                        <div class="mission-point-text">Models are anchored in macro-economic fundamentals, not curve-fitting. We distinguish signal from statistical artefact.</div>
+                    </div>
+                </div>
+                <div class="mission-point">
+                    <div class="mission-num">03</div>
+                    <div>
+                        <div class="mission-point-title">Institutional Delivery</div>
+                        <div class="mission-point-text">Outputs are structured for investment committees, risk boards, and portfolio managers — decision-ready, not academic.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── SERVICES ──────────────────────────────────────────── -->
+<section id="services">
+    <div class="container">
+        <div class="services-header fade-up">
+            <div>
+                <div class="section-label">Practice Areas</div>
+                <h2 class="section-title">Our Core<br><em>Capabilities</em></h2>
+            </div>
+            <p class="section-body">
+                Two complementary disciplines, each rooted in quantitative method and designed to serve institutional decision-making at the highest level.
+            </p>
+        </div>
+
+        <div class="services-grid fade-up">
+            <!-- Card 1 -->
+            <div class="service-card">
+                <span class="service-arrow">↗</span>
+                <div class="service-tag">Due Diligence</div>
+                <div class="service-title">Quantitative Hedge Fund Analysis</div>
+                <p class="service-text">
+                    We transform a standard Fact Sheet into a comprehensive risk assessment — reconciling track record data, isolating regime dependencies, and mapping the fund's positioning within its peer universe.
+                </p>
+            </div>
+            <!-- Card 2 -->
+            <div class="service-card">
+                <span class="service-arrow">↗</span>
+                <div class="service-tag">Factor Attribution</div>
+                <div class="service-title">BMA Attribution Framework</div>
+                <p class="service-text">
+                    Our proprietary Bootstrap Model Averaging framework uses Bayesian factor selection with a Zellner g-prior to decompose returns with statistical honesty — separating genuine alpha from systematic exposures.
+                </p>
+            </div>
+            <!-- Card 3 -->
+            <div class="service-card">
+                <span class="service-arrow">↗</span>
+                <div class="service-tag">Macro Allocation</div>
+                <div class="service-title">Cross-Asset Fundamental Research</div>
+                <p class="service-text">
+                    Systematic detection of valuation discrepancies between financial pricing and macro-economic fundamentals, with surveillance of volatility regimes and risk-parity deviations across asset classes.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── RESEARCH STRIP ────────────────────────────────────── -->
+<div id="research-strip">
+    <div class="research-strip-inner">
+        <div>
+            <div class="research-strip-label">Research Library</div>
+            <div class="research-strip-title">Published institutional research covering macro regimes, valuation dynamics, and systematic risk.</div>
+            <div class="research-strip-sub">4 papers available — new research published regularly.</div>
+        </div>
+        <a href="research.html" class="btn btn-primary" style="white-space:nowrap; flex-shrink:0;">View All Research</a>
+    </div>
 </div>
 
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/jquery.scrollex.min.js"></script>
-<script src="assets/js/jquery.scrolly.min.js"></script>
-<script src="assets/js/browser.min.js"></script>
-<script src="assets/js/breakpoints.min.js"></script>
-<script src="assets/js/util.js"></script>
-<script src="assets/js/main.js"></script>
+<!-- ── PROCESS ───────────────────────────────────────────── -->
+<section id="process">
+    <div class="container">
+        <div class="fade-up">
+            <div class="section-label">Methodology</div>
+            <h2 class="section-title">Our Analytical<br><em>Process</em></h2>
+        </div>
 
+        <div class="process-grid fade-up">
+            <div class="process-step">
+                <div class="process-step-num">01</div>
+                <div class="process-step-title">Baseline Ingestion</div>
+                <p class="process-step-text">We extract and reconcile raw track record data — monthly returns, volatility, drawdown profiles — establishing a behavioral baseline before any model is applied.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-step-num">02</div>
+                <div class="process-step-title">Regime Stress Testing</div>
+                <p class="process-step-text">We isolate performance across macro stress events, revealing vulnerabilities concealed in benign market environments and establishing regime-conditional behavior profiles.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-step-num">03</div>
+                <div class="process-step-title">Factor Attribution</div>
+                <p class="process-step-text">Our BMA framework decomposes return streams, distinguishing genuine alpha from systematic factor exposures with statistically robust confidence intervals.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-step-num">04</div>
+                <div class="process-step-title">Universe Benchmarking</div>
+                <p class="process-step-text">Final placement within a curated peer group, mapping strategy positioning and differentiating alpha-generating managers from beta-heavy approaches.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CONTACT ───────────────────────────────────────────── -->
+<section id="contact">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="fade-up">
+                <div class="section-label">Institutional Inquiries</div>
+                <h2 class="section-title">Get in<br><em>Touch</em></h2>
+                <div class="rule"></div>
+                <p class="section-body">
+                    For bespoke fund due diligence mandates, research access, or to discuss an analytical engagement, contact us directly.
+                </p>
+                <div class="contact-detail">
+                    <div>
+                        <div class="contact-item-label">Email</div>
+                        <div class="contact-item-val"><a href="mailto:info@nameanalytical.com" style="color:var(--navy);">info@nameanalytical.com</a></div>
+                    </div>
+                    <div>
+                        <div class="contact-item-label">Phone</div>
+                        <div class="contact-item-val">+32 489 97 61 16</div>
+                    </div>
+                    <div>
+                        <div class="contact-item-label">Location</div>
+                        <div class="contact-item-val">Brussels, Belgium</div>
+                    </div>
+                    <div>
+                        <div class="contact-item-label">Website</div>
+                        <div class="contact-item-val"><a href="https://www.nameanalytical.com" style="color:var(--navy);">www.nameanalytical.com</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-area fade-up">
+                <div class="form-row">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="John Smith" />
+                </div>
+                <div class="form-row">
+                    <label>Organisation</label>
+                    <input type="text" placeholder="Pension Fund / Family Office / etc." />
+                </div>
+                <div class="form-row">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="you@institution.com" />
+                </div>
+                <div class="form-row">
+                    <label>Nature of Enquiry</label>
+                    <select>
+                        <option value="">— Select —</option>
+                        <option>Hedge Fund Due Diligence</option>
+                        <option>Macro Allocation Research</option>
+                        <option>Research Library Access</option>
+                        <option>General Enquiry</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label>Message</label>
+                    <textarea placeholder="Briefly describe your analytical need…"></textarea>
+                </div>
+                <a href="mailto:info@nameanalytical.com" class="btn btn-primary" style="margin-top:0.5rem;">Submit Enquiry</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<footer id="foot">
+    <div class="foot-inner">
+        <div class="foot-top">
+            <div>
+                <div class="foot-brand">NAME Analytical</div>
+                <p class="foot-desc">Independent Quantitative Research & Advisory Lab. Specialised in Risk-Driven Investment Methodologies and Hedge Fund Due Diligence.</p>
+            </div>
+            <div>
+                <div class="foot-col-title">Navigation</div>
+                <ul class="foot-links">
+                    <li><a href="#mission">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#process">Methodology</a></li>
+                    <li><a href="research.html">Research</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="foot-col-title">Contact</div>
+                <ul class="foot-links">
+                    <li><a href="mailto:info@nameanalytical.com">info@nameanalytical.com</a></li>
+                    <li>+32 489 97 61 16</li>
+                    <li>Brussels, Belgium</li>
+                    <li><a href="https://www.nameanalytical.com">www.nameanalytical.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="foot-bottom">
+            <span>&copy; 2025 NAME Analytical. All Rights Reserved.</span>
+            <span class="gold">Independent Analytics. Institutional Rigor.</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Scroll-triggered fade-in
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+                setTimeout(() => e.target.classList.add('visible'), i * 80);
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.12 });
+    fadeEls.forEach(el => obs.observe(el));
+
+    // Nav scroll shadow
+    const nav = document.getElementById('topnav');
+    window.addEventListener('scroll', () => {
+        nav.style.boxShadow = window.scrollY > 10 ? '0 2px 20px rgba(0,0,0,0.07)' : 'none';
+    });
+</script>
 </body>
-
 </html>
-
-
