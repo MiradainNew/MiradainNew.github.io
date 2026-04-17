@@ -3,1023 +3,716 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>NAME Analytical | Institutional Quantitative Research</title>
-
+    <title>NAME Analytical | Quantitative Due Diligence & Macro Research</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
     <style>
-        /* ── RESET & TOKENS ────────────────────────────────────── */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
         :root {
-            --navy:   #10202f;
-            --navy2:  #1a3248;
+            --navy:   #0f1e2d;
+            --navy2:  #172840;
             --gold:   #b8924a;
             --gold-lt:#d4b07a;
-            --chalk:  #f5f3ef;
+            --chalk:  #f4f2ee;
             --white:  #ffffff;
-            --ink:    #2c3e50;
+            --ink:    #243040;
             --muted:  #6b7c8d;
             --border: #dde3ea;
-            --rule:   rgba(184,146,74,0.35);
-
-            --ff-display: 'Cormorant Garamond', Georgia, serif;
-            --ff-body:    'DM Sans', Helvetica, sans-serif;
-
-            --max: 1160px;
+            --ff-d: 'Cormorant Garamond', Georgia, serif;
+            --ff-b: 'DM Sans', Helvetica, sans-serif;
+            --max: 1180px;
             --pad: clamp(1.5rem, 5vw, 4rem);
         }
-
         html { scroll-behavior: smooth; }
-
-        body {
-            font-family: var(--ff-body);
-            font-weight: 300;
-            color: var(--ink);
-            background: var(--white);
-            line-height: 1.7;
-            font-size: 15px;
-        }
-
+        body { font-family: var(--ff-b); font-weight: 300; color: var(--ink); background: var(--white); line-height: 1.7; font-size: 15px; }
         a { color: inherit; text-decoration: none; }
         img { display: block; max-width: 100%; }
 
-        /* ── NAV ───────────────────────────────────────────────── */
-        nav#topnav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            background: var(--white);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 var(--pad);
-            height: 68px;
+        /* ── NAV ── */
+        nav#nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+            background: var(--white); border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 var(--pad); height: 66px; transition: box-shadow 0.3s;
         }
+        nav#nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.07); }
+        .nav-brand { display: flex; align-items: center; gap: 13px; }
+        .nav-brand img { width: 32px; opacity: 0.9; }
+        .nav-firm { font-family: var(--ff-d); font-size: 1.1rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--navy); }
+        .nav-tag { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 400; display: block; line-height: 1; }
+        .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+        .nav-links a { font-size: 0.71rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--muted); transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--navy); }
+        .nav-links .cta a { color: var(--navy); border: 1px solid var(--navy); padding: 7px 18px; font-size: 0.67rem; letter-spacing: 0.14em; transition: all 0.2s; }
+        .nav-links .cta a:hover { background: var(--navy); color: var(--white); }
+        .nav-links .cta2 a { background: var(--gold); color: var(--navy); border: 1px solid var(--gold); padding: 7px 18px; font-size: 0.67rem; letter-spacing: 0.14em; font-weight: 500; transition: all 0.2s; }
+        .nav-links .cta2 a:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
 
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .nav-brand img {
-            width: 34px;
-            height: auto;
-            opacity: 0.92;
-        }
-
-        .nav-brand-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.1;
-        }
-
-        .nav-brand-text .firm {
-            font-family: var(--ff-display);
-            font-size: 1.15rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            color: var(--navy);
-            text-transform: uppercase;
-        }
-
-        .nav-brand-text .tagline {
-            font-size: 0.65rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--gold);
-            font-weight: 400;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 2.4rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            font-size: 0.72rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted);
-            font-weight: 400;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover { color: var(--navy); }
-
-        .nav-links .nav-cta a {
-            color: var(--navy);
-            border: 1px solid var(--navy);
-            padding: 7px 18px;
-            font-size: 0.68rem;
-            letter-spacing: 0.14em;
-            transition: background 0.2s, color 0.2s;
-        }
-
-        .nav-links .nav-cta a:hover {
-            background: var(--navy);
-            color: var(--white);
-        }
-
-        /* ── HERO ──────────────────────────────────────────────── */
+        /* ── HERO ── */
         #hero {
-            margin-top: 68px;
-            background: var(--navy);
-            color: var(--white);
-            min-height: 78vh;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: stretch;
-            overflow: hidden;
-            position: relative;
+            margin-top: 66px; background: var(--navy); min-height: 82vh;
+            display: grid; grid-template-columns: 55% 45%; position: relative; overflow: hidden;
         }
-
         #hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 70% 40%, rgba(184,146,74,0.08) 0%, transparent 60%),
-                linear-gradient(135deg, #10202f 0%, #1a3248 100%);
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 75% 35%, rgba(184,146,74,0.09) 0%, transparent 58%);
         }
-
-        .hero-left {
-            position: relative;
-            z-index: 2;
-            padding: clamp(3rem, 8vw, 7rem) var(--pad);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border-right: 1px solid rgba(255,255,255,0.07);
+        .hero-l {
+            position: relative; z-index: 2; padding: clamp(3.5rem, 9vw, 7.5rem) var(--pad);
+            display: flex; flex-direction: column; justify-content: center;
+            border-right: 1px solid rgba(255,255,255,0.06);
         }
-
-        .hero-eyebrow {
-            font-size: 0.65rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--gold);
-            font-weight: 400;
-            margin-bottom: 1.6rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .eyebrow {
+            font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--gold); font-weight: 400; margin-bottom: 1.6rem;
+            display: flex; align-items: center; gap: 10px;
         }
-
-        .hero-eyebrow::before {
-            content: '';
-            display: block;
-            width: 28px;
-            height: 1px;
-            background: var(--gold);
+        .eyebrow::before { content: ''; width: 26px; height: 1px; background: var(--gold); display: block; }
+        h1.hero-h1 {
+            font-family: var(--ff-d); font-size: clamp(2.7rem, 5.2vw, 4.6rem);
+            font-weight: 300; line-height: 1.07; color: var(--white); margin-bottom: 1.6rem;
         }
-
-        .hero-h1 {
-            font-family: var(--ff-display);
-            font-size: clamp(2.8rem, 5.5vw, 4.8rem);
-            font-weight: 300;
-            line-height: 1.08;
-            letter-spacing: -0.01em;
-            color: var(--white);
-            margin-bottom: 1.8rem;
+        h1.hero-h1 em { font-style: italic; color: var(--gold-lt); }
+        .hero-sub { font-size: 0.93rem; color: rgba(255,255,255,0.58); max-width: 460px; line-height: 1.8; margin-bottom: 2.8rem; }
+        .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+        .btn { display: inline-block; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 400; padding: 12px 26px; cursor: pointer; transition: all 0.22s; }
+        .btn-gold { background: var(--gold); color: var(--navy); border: 1px solid var(--gold); }
+        .btn-gold:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
+        .btn-ghost { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.28); }
+        .btn-ghost:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.04); }
+        .btn-navy { background: var(--navy); color: var(--white); border: 1px solid var(--navy); }
+        .btn-navy:hover { background: var(--navy2); }
+        .btn-outline { background: transparent; color: var(--navy); border: 1px solid var(--border); }
+        .btn-outline:hover { border-color: var(--navy); }
+        .hero-r {
+            position: relative; z-index: 2;
+            padding: clamp(3.5rem, 9vw, 7.5rem) var(--pad);
+            display: flex; flex-direction: column; justify-content: center; gap: 0;
         }
+        .hero-kpi { padding: 1.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+        .hero-kpi:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+        .kpi-val { font-family: var(--ff-d); font-size: 2.4rem; font-weight: 300; color: var(--gold-lt); line-height: 1; margin-bottom: 0.3rem; }
+        .kpi-lbl { font-size: 0.69rem; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
 
-        .hero-h1 em {
-            font-style: italic;
-            color: var(--gold-lt);
-        }
-
-        .hero-sub {
-            font-size: 0.92rem;
-            color: rgba(255,255,255,0.6);
-            max-width: 440px;
-            line-height: 1.75;
-            margin-bottom: 2.6rem;
-            font-weight: 300;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-block;
-            font-size: 0.7rem;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            font-weight: 400;
-            padding: 12px 28px;
-            cursor: pointer;
-            transition: all 0.22s;
-        }
-
-        .btn-primary {
-            background: var(--gold);
-            color: var(--navy);
-            border: 1px solid var(--gold);
-        }
-
-        .btn-primary:hover {
-            background: var(--gold-lt);
-            border-color: var(--gold-lt);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--white);
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--white);
-            background: rgba(255,255,255,0.05);
-        }
-
-        .hero-right {
-            position: relative;
-            z-index: 2;
-            padding: clamp(3rem, 8vw, 7rem) var(--pad);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 0;
-        }
-
-        .hero-stat-block {
-            padding: 2rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .hero-stat-block:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
-
-        .hero-stat-num {
-            font-family: var(--ff-display);
-            font-size: 2.8rem;
-            font-weight: 300;
-            color: var(--gold-lt);
-            line-height: 1;
-            margin-bottom: 0.35rem;
-        }
-
-        .hero-stat-label {
-            font-size: 0.72rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.45);
-        }
-
-        /* ── SECTION UTILITY ───────────────────────────────────── */
+        /* ── SECTION COMMONS ── */
         section { padding: clamp(4rem, 8vw, 7rem) var(--pad); }
+        .wrap { max-width: var(--max); margin: 0 auto; }
+        .s-label { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); font-weight: 400; margin-bottom: 1.1rem; display: flex; align-items: center; gap: 10px; }
+        .s-label::before { content: ''; width: 22px; height: 1px; background: var(--gold); display: block; }
+        .s-title { font-family: var(--ff-d); font-size: clamp(1.9rem, 3.2vw, 2.8rem); font-weight: 300; color: var(--navy); line-height: 1.12; }
+        .s-title em { font-style: italic; color: var(--gold); }
+        .s-body { font-size: 0.9rem; color: var(--muted); line-height: 1.8; max-width: 520px; margin-top: 0.9rem; }
+        .rule { width: 44px; height: 2px; background: var(--gold); margin: 1.6rem 0; }
 
-        .container { max-width: var(--max); margin: 0 auto; }
+        /* ── CLIENTS ── */
+        #clients { background: var(--chalk); }
+        .clients-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+        .client-types { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border: 1px solid var(--border); margin-top: 2rem; }
+        .client-type { background: var(--chalk); padding: 1.6rem 1.4rem; transition: background 0.2s; }
+        .client-type:hover { background: var(--white); }
+        .ct-icon { font-size: 1.2rem; margin-bottom: 0.6rem; }
+        .ct-name { font-size: 0.78rem; font-weight: 500; color: var(--navy); letter-spacing: 0.04em; margin-bottom: 0.3rem; }
+        .ct-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+        .clients-r { padding-top: 0.5rem; }
+        .clients-r p { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem; }
 
-        .section-label {
-            font-size: 0.64rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--gold);
-            font-weight: 400;
-            margin-bottom: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        /* ── PRODUCTS ── */
+        #products { background: var(--white); }
+        .products-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 3.5rem; }
+        .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+        .product-card { background: var(--white); padding: 3rem 2.5rem; position: relative; cursor: default; transition: background 0.25s; }
+        .product-card:hover { background: var(--chalk); }
+        .product-card:hover .pc-arrow { opacity: 1; transform: translate(3px,-3px); }
+        .pc-arrow { position: absolute; top: 2.5rem; right: 2.5rem; font-size: 1.1rem; color: var(--gold); opacity: 0; transition: all 0.25s; }
+        .pc-tag { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 400; margin-bottom: 1.2rem; }
+        .pc-title { font-family: var(--ff-d); font-size: 1.7rem; font-weight: 400; color: var(--navy); line-height: 1.15; margin-bottom: 1rem; }
+        .pc-text { font-size: 0.86rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
+        .pc-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.8rem; }
+        .pc-bullets li { font-size: 0.82rem; color: var(--muted); padding-left: 1.1rem; position: relative; }
+        .pc-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--gold); font-size: 0.7rem; }
 
-        .section-label::before {
-            content: '';
-            display: block;
-            width: 24px;
-            height: 1px;
-            background: var(--gold);
-        }
+        /* ── ASSET CLASSES ── */
+        #asset-classes { background: var(--chalk); }
+        .ac-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem; align-items: start; }
+        .ac-list { display: flex; flex-direction: column; gap: 0; margin-top: 2rem; border: 1px solid var(--border); }
+        .ac-item { background: var(--white); padding: 1.5rem 1.8rem; border-bottom: 1px solid var(--border); display: flex; gap: 1.4rem; align-items: flex-start; }
+        .ac-item:last-child { border-bottom: none; }
+        .ac-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 7px; }
+        .ac-item-title { font-size: 0.82rem; font-weight: 500; color: var(--navy); margin-bottom: 0.25rem; }
+        .ac-item-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+        .ac-note { margin-top: 2rem; padding: 1.4rem 1.8rem; background: rgba(184,146,74,0.06); border-left: 3px solid var(--gold); font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+        .ac-note strong { color: var(--navy); font-weight: 500; }
 
-        .section-title {
-            font-family: var(--ff-display);
-            font-size: clamp(2rem, 3.5vw, 3rem);
-            font-weight: 300;
-            color: var(--navy);
-            line-height: 1.15;
-            letter-spacing: -0.01em;
-        }
+        /* ── PROCESS ── */
+        #process { background: var(--white); }
+        .process-hdr { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 3.5rem; }
+        .process-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; }
+        .p-tab { background: none; border: none; border-bottom: 2px solid transparent; padding: 1rem 1.5rem; font-family: var(--ff-b); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); cursor: pointer; white-space: nowrap; transition: all 0.2s; margin-bottom: -1px; }
+        .p-tab.active { color: var(--navy); border-bottom-color: var(--gold); font-weight: 500; }
+        .p-tab:hover { color: var(--navy); }
+        .process-panel { display: none; }
+        .process-panel.active { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+        .p-step { background: var(--white); padding: 2.4rem 2rem; }
+        .p-num { font-family: var(--ff-d); font-size: 3rem; font-weight: 300; color: rgba(184,146,74,0.15); line-height: 1; margin-bottom: 0.9rem; }
+        .p-step-title { font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); font-weight: 500; margin-bottom: 0.6rem; }
+        .p-step-text { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
 
-        .section-title em { font-style: italic; color: var(--gold); }
+        /* ── DARK CTA STRIP ── */
+        .dark-strip { background: var(--navy); padding: clamp(3rem, 5vw, 4.5rem) var(--pad); }
+        .dark-strip-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; }
+        .ds-eyebrow { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 8px; }
+        .ds-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); display: block; }
+        .ds-title { font-family: var(--ff-d); font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 300; color: var(--white); }
+        .ds-sub { font-size: 0.86rem; color: rgba(255,255,255,0.48); margin-top: 0.5rem; }
+        .ds-btns { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
 
-        .section-body {
-            font-size: 0.93rem;
-            color: var(--muted);
-            line-height: 1.8;
-            max-width: 560px;
-            margin-top: 1rem;
-        }
+        /* ── BOOKING ── */
+        #booking { background: var(--chalk); }
+        .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+        .time-slots { margin-top: 2rem; display: flex; flex-direction: column; gap: 1px; border: 1px solid var(--border); }
+        .slot-group-title { background: var(--navy); color: rgba(255,255,255,0.6); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.7rem 1.2rem; }
+        .time-slot { background: var(--white); padding: 1rem 1.4rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.2s; }
+        .time-slot:last-child { border-bottom: none; }
+        .time-slot:hover { background: var(--chalk); }
+        .time-slot:hover .slot-btn { opacity: 1; }
+        .slot-time { font-size: 0.88rem; color: var(--navy); font-weight: 400; }
+        .slot-tz { font-size: 0.7rem; color: var(--muted); margin-top: 1px; }
+        .slot-btn { font-size: 0.63rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold); padding: 5px 12px; opacity: 0; transition: opacity 0.2s; }
+        .booking-form { background: var(--white); border: 1px solid var(--border); padding: 2.5rem; }
+        .booking-form h4 { font-family: var(--ff-d); font-size: 1.2rem; font-weight: 400; color: var(--navy); margin-bottom: 1.4rem; }
+        .f-row { margin-bottom: 1.1rem; }
+        .f-row label { display: block; font-size: 0.63rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+        .f-row input, .f-row select, .f-row textarea { width: 100%; border: 1px solid var(--border); background: var(--chalk); padding: 9px 13px; font-family: var(--ff-b); font-size: 0.87rem; color: var(--ink); outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+        .f-row input:focus, .f-row select:focus, .f-row textarea:focus { border-color: var(--gold); }
+        .f-row select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7c8d'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 34px; cursor: pointer; background-color: var(--chalk); }
+        .booking-note { font-size: 0.78rem; color: var(--muted); margin-top: 1rem; line-height: 1.6; }
 
-        .rule { width: 48px; height: 2px; background: var(--gold); margin: 1.8rem 0; }
-
-        /* ── MISSION ───────────────────────────────────────────── */
-        #mission { background: var(--chalk); }
-
-        .mission-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-            align-items: center;
-        }
-
-        .mission-right {
-            display: flex;
-            flex-direction: column;
-            gap: 2.2rem;
-        }
-
-        .mission-point {
-            display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-        }
-
-        .mission-num {
-            font-family: var(--ff-display);
-            font-size: 2rem;
-            font-weight: 300;
-            color: rgba(184,146,74,0.25);
-            line-height: 1;
-            min-width: 2rem;
-            padding-top: 2px;
-        }
-
-        .mission-point-title {
-            font-size: 0.78rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--navy);
-            font-weight: 500;
-            margin-bottom: 0.4rem;
-        }
-
-        .mission-point-text {
-            font-size: 0.88rem;
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        /* ── SERVICES ──────────────────────────────────────────── */
-        #services { background: var(--white); }
-
-        .services-header {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: end;
-            margin-bottom: 4rem;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-        }
-
-        .service-card {
-            background: var(--white);
-            padding: 2.8rem 2.2rem;
-            position: relative;
-            transition: background 0.25s;
-            cursor: default;
-        }
-
-        .service-card:hover {
-            background: var(--chalk);
-        }
-
-        .service-card:hover .service-arrow { opacity: 1; transform: translate(3px,-3px); }
-
-        .service-tag {
-            font-size: 0.62rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--gold);
-            font-weight: 400;
-            margin-bottom: 1.4rem;
-        }
-
-        .service-title {
-            font-family: var(--ff-display);
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: var(--navy);
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-
-        .service-text {
-            font-size: 0.85rem;
-            color: var(--muted);
-            line-height: 1.75;
-        }
-
-        .service-arrow {
-            position: absolute;
-            top: 2.4rem;
-            right: 2.2rem;
-            font-size: 1.1rem;
-            color: var(--gold);
-            opacity: 0;
-            transition: opacity 0.25s, transform 0.25s;
-        }
-
-        /* ── RESEARCH STRIP ────────────────────────────────────── */
-        #research-strip {
-            background: var(--navy);
-            padding: clamp(3rem, 6vw, 5rem) var(--pad);
-        }
-
-        .research-strip-inner {
-            max-width: var(--max);
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            align-items: center;
-            gap: 3rem;
-        }
-
-        .research-strip-label {
-            font-size: 0.64rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .research-strip-label::before {
-            content: '';
-            display: block;
-            width: 24px;
-            height: 1px;
-            background: var(--gold);
-        }
-
-        .research-strip-title {
-            font-family: var(--ff-display);
-            font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-            font-weight: 300;
-            color: var(--white);
-            line-height: 1.2;
-        }
-
-        .research-strip-sub {
-            font-size: 0.88rem;
-            color: rgba(255,255,255,0.5);
-            margin-top: 0.6rem;
-        }
-
-        /* ── PROCESS ───────────────────────────────────────────── */
-        #process { background: var(--chalk); }
-
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            margin-top: 3.5rem;
-        }
-
-        .process-step {
-            background: var(--chalk);
-            padding: 2.4rem 1.8rem;
-            position: relative;
-        }
-
-        .process-step-num {
-            font-family: var(--ff-display);
-            font-size: 3.5rem;
-            font-weight: 300;
-            color: rgba(184,146,74,0.15);
-            line-height: 1;
-            margin-bottom: 1rem;
-        }
-
-        .process-step-title {
-            font-size: 0.78rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--navy);
-            font-weight: 500;
-            margin-bottom: 0.7rem;
-        }
-
-        .process-step-text {
-            font-size: 0.83rem;
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        /* ── CONTACT ───────────────────────────────────────────── */
+        /* ── CONTACT ── */
         #contact { background: var(--white); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+        .contact-details { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+        .c-lbl { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; }
+        .c-val { font-size: 0.9rem; color: var(--navy); }
+        .submit-box { background: var(--chalk); border: 1px solid var(--border); padding: 2.5rem; }
+        .submit-box h4 { font-family: var(--ff-d); font-size: 1.3rem; font-weight: 400; color: var(--navy); margin-bottom: 0.5rem; }
+        .submit-box p { font-size: 0.84rem; color: var(--muted); margin-bottom: 1.6rem; line-height: 1.7; }
+        .submit-steps { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 1.8rem; }
+        .submit-step { display: flex; gap: 1rem; align-items: flex-start; }
+        .step-n { width: 22px; height: 22px; background: var(--gold); color: var(--navy); font-size: 0.68rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+        .step-t { font-size: 0.83rem; color: var(--ink); }
 
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-            align-items: start;
-        }
-
-        .contact-detail {
-            display: flex;
-            flex-direction: column;
-            gap: 1.6rem;
-            margin-top: 2rem;
-        }
-
-        .contact-item-label {
-            font-size: 0.63rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--gold);
-            font-weight: 400;
-            margin-bottom: 0.25rem;
-        }
-
-        .contact-item-val {
-            font-size: 0.92rem;
-            color: var(--navy);
-        }
-
-        .contact-form-area {
-            background: var(--chalk);
-            padding: 3rem;
-            border: 1px solid var(--border);
-        }
-
-        .form-row { margin-bottom: 1.4rem; }
-
-        .form-row label {
-            display: block;
-            font-size: 0.65rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-row input,
-        .form-row textarea,
-        .form-row select {
-            width: 100%;
-            border: 1px solid var(--border);
-            background: var(--white);
-            padding: 10px 14px;
-            font-family: var(--ff-body);
-            font-size: 0.88rem;
-            color: var(--ink);
-            outline: none;
-            transition: border-color 0.2s;
-            -webkit-appearance: none;
-        }
-
-        .form-row input:focus,
-        .form-row textarea:focus,
-        .form-row select:focus {
-            border-color: var(--gold);
-        }
-
-        .form-row textarea { resize: vertical; min-height: 110px; }
-
-        .form-row select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7c8d'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
-
-        /* ── FOOTER ────────────────────────────────────────────── */
-        footer#foot {
-            background: var(--navy);
-            color: rgba(255,255,255,0.55);
-            padding: clamp(3rem, 6vw, 5rem) var(--pad) 2.5rem;
-        }
-
-        .foot-inner {
-            max-width: var(--max);
-            margin: 0 auto;
-        }
-
-        .foot-top {
-            display: grid;
-            grid-template-columns: 1.4fr 1fr 1fr;
-            gap: 4rem;
-            padding-bottom: 3rem;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            margin-bottom: 2rem;
-        }
-
-        .foot-brand {
-            font-family: var(--ff-display);
-            font-size: 1.1rem;
-            font-weight: 400;
-            color: var(--white);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 0.8rem;
-        }
-
-        .foot-desc {
-            font-size: 0.83rem;
-            line-height: 1.7;
-        }
-
-        .foot-col-title {
-            font-size: 0.63rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 1.2rem;
-        }
-
-        .foot-links {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-        }
-
-        .foot-links a {
-            font-size: 0.84rem;
-            color: rgba(255,255,255,0.55);
-            transition: color 0.2s;
-        }
-
+        /* ── FOOTER ── */
+        footer { background: var(--navy); color: rgba(255,255,255,0.5); padding: clamp(3rem,6vw,5rem) var(--pad) 2.5rem; }
+        .foot-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 2rem; }
+        .foot-brand { font-family: var(--ff-d); font-size: 1.05rem; font-weight: 400; color: var(--white); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.7rem; }
+        .foot-desc { font-size: 0.82rem; line-height: 1.7; }
+        .foot-col-t { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.1rem; }
+        .foot-links { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+        .foot-links a { font-size: 0.83rem; color: rgba(255,255,255,0.5); transition: color 0.2s; }
         .foot-links a:hover { color: var(--white); }
-
-        .foot-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.75rem;
-        }
-
+        .foot-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; }
         .foot-bottom .gold { color: var(--gold); }
 
-        /* ── RESPONSIVE ────────────────────────────────────────── */
-        @media (max-width: 900px) {
-            #hero, .mission-grid, .services-header,
-            .contact-grid, .foot-top {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-            }
+        /* ── FADE ── */
+        .fu { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fu.vis { opacity: 1; transform: none; }
 
+        /* ── RESPONSIVE ── */
+        @media (max-width: 960px) {
+            #hero, .clients-grid, .products-grid, .ac-grid, .process-hdr,
+            .booking-grid, .contact-grid, .foot-top { grid-template-columns: 1fr; gap: 2.5rem; }
             #hero { min-height: auto; }
-
-            .hero-right {
-                border-top: 1px solid rgba(255,255,255,0.08);
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 1.5rem;
-            }
-
-            .hero-stat-block {
-                border: none;
-                padding: 1rem 0;
-                flex: 1 1 130px;
-            }
-
-            .services-grid, .process-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .research-strip-inner { grid-template-columns: 1fr; }
-
+            .hero-r { display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; border-top: 1px solid rgba(255,255,255,0.07); }
+            .hero-kpi { border: none; padding: 1rem 0; flex: 1 1 120px; }
+            .products-intro { grid-template-columns: 1fr; }
+            .process-panel.active { grid-template-columns: 1fr; }
+            .dark-strip-inner { grid-template-columns: 1fr; }
+            .nav-links .cta, .nav-links .cta2 { display: none; }
             .nav-links { gap: 1.2rem; }
-            .nav-links .nav-cta { display: none; }
         }
-
         @media (max-width: 600px) {
             .nav-links { display: none; }
-            .contact-form-area { padding: 2rem 1.5rem; }
+            .client-types { grid-template-columns: 1fr; }
+            .foot-top { grid-template-columns: 1fr; gap: 2rem; }
         }
-
-        /* ── SCROLL ANIMATIONS ─────────────────────────────────── */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.65s ease, transform 0.65s ease;
-        }
-
-        .fade-up.visible {
-            opacity: 1;
-            transform: none;
-        }
-
     </style>
 </head>
 <body>
 
-<!-- ── NAV ──────────────────────────────────────────────── -->
-<nav id="topnav">
+<!-- NAV -->
+<nav id="nav">
     <div class="nav-brand">
         <img src="NAME_without_text1.png" alt="NAME Analytical" />
-        <div class="nav-brand-text">
-            <span class="firm">NAME Analytical</span>
-            <span class="tagline">Independent Analytics. Institutional Rigor.</span>
+        <div>
+            <span class="nav-firm">NAME Analytical</span>
+            <span class="nav-tag">Independent Analytics · Institutional Rigor</span>
         </div>
     </div>
     <ul class="nav-links">
-        <li><a href="#mission">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#process">Process</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#asset-classes">Asset Classes</a></li>
+        <li><a href="#clients">Who We Serve</a></li>
+        <li><a href="due-diligence.html">DD Engine</a></li>
         <li><a href="research.html">Research</a></li>
-        <li class="nav-cta"><a href="#contact">Inquiries</a></li>
+        <li><a href="#booking">Book a Call</a></li>
+        <li class="cta"><a href="#contact">Submit Fund</a></li>
     </ul>
 </nav>
 
-<!-- ── HERO ─────────────────────────────────────────────── -->
+<!-- HERO -->
 <section id="hero">
-    <div class="hero-left">
-        <div class="hero-eyebrow">Independent Quantitative Research</div>
-        <h1 class="hero-h1">Where Data Meets<br><em>Institutional Precision</em></h1>
-        <p class="hero-sub">
-            Rigorous, transparent analytics for institutional investors. We bridge the gap between economic raw data, asset allocation, and the risk taken.
-        </p>
-        <div class="hero-actions">
-            <a href="#services" class="btn btn-primary">Our Capabilities</a>
-            <a href="research.html" class="btn btn-outline">Research Library</a>
+    <div class="hero-l">
+        <div class="eyebrow">Quantitative Due Diligence · Macro Research</div>
+        <h1 class="hero-h1">Evidence-Based Insight<br>for <em>Alternative Allocators</em></h1>
+        <p class="hero-sub">We provide institutional-grade quantitative analysis of hedge funds and macro markets — independent, rigorous, and built for allocation decisions.</p>
+        <div class="hero-btns">
+            <a href="due-diligence.html" class="btn btn-gold">Our DD Engine</a>
+            <a href="#contact" class="btn btn-ghost">Submit Fund for Analysis</a>
         </div>
     </div>
-    <div class="hero-right">
-        <div class="hero-stat-block">
-            <div class="hero-stat-num">4</div>
-            <div class="hero-stat-label">Published Research Papers</div>
+    <div class="hero-r">
+        <div class="hero-kpi">
+            <div class="kpi-val">UCITS &amp; Offshore</div>
+            <div class="kpi-lbl">Hedge Fund Coverage</div>
         </div>
-        <div class="hero-stat-block">
-            <div class="hero-stat-num">2</div>
-            <div class="hero-stat-label">Core Practice Areas</div>
+        <div class="hero-kpi">
+            <div class="kpi-val">2 Products</div>
+            <div class="kpi-lbl">DD Diagnostic · Macro Research</div>
         </div>
-        <div class="hero-stat-block">
-            <div class="hero-stat-num">BMA</div>
-            <div class="hero-stat-label">Proprietary Attribution Framework</div>
+        <div class="hero-kpi">
+            <div class="kpi-val">Global</div>
+            <div class="kpi-lbl">Serving Allocators Worldwide</div>
         </div>
-        <div class="hero-stat-block">
-            <div class="hero-stat-num">Brussels</div>
-            <div class="hero-stat-label">Headquartered in Belgium</div>
+        <div class="hero-kpi">
+            <div class="kpi-val">Brussels</div>
+            <div class="kpi-lbl">Headquartered in Belgium</div>
         </div>
     </div>
 </section>
 
-<!-- ── MISSION ───────────────────────────────────────────── -->
-<section id="mission">
-    <div class="container">
-        <div class="mission-grid">
-            <div class="mission-left fade-up">
-                <div class="section-label">Our Mission</div>
-                <h2 class="section-title">Built on Analytical<br><em>Independence</em></h2>
-                <div class="rule"></div>
-                <p class="section-body">
-                    NAME Analytical is an independent quantitative research lab. We design and back-test investment methodologies across asset classes, delivering analysis that is rigorous, reproducible, and grounded in economic first principles.
-                </p>
-                <br>
-                <p class="section-body">
-                    Our work is governed by one discipline: let the data speak, and challenge it when it doesn't.
-                </p>
-            </div>
-            <div class="mission-right fade-up">
-                <div class="mission-point">
-                    <div class="mission-num">01</div>
-                    <div>
-                        <div class="mission-point-title">Quantitative Rigour</div>
-                        <div class="mission-point-text">Every methodology is back-tested, stress-tested, and documented with full transparency of assumptions and limitations.</div>
-                    </div>
-                </div>
-                <div class="mission-point">
-                    <div class="mission-num">02</div>
-                    <div>
-                        <div class="mission-point-title">Economic Grounding</div>
-                        <div class="mission-point-text">Models are anchored in macro-economic fundamentals, not curve-fitting. We distinguish signal from statistical artefact.</div>
-                    </div>
-                </div>
-                <div class="mission-point">
-                    <div class="mission-num">03</div>
-                    <div>
-                        <div class="mission-point-title">Institutional Delivery</div>
-                        <div class="mission-point-text">Outputs are structured for investment committees, risk boards, and portfolio managers — decision-ready, not academic.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ── SERVICES ──────────────────────────────────────────── -->
-<section id="services">
-    <div class="container">
-        <div class="services-header fade-up">
+<!-- PRODUCTS -->
+<section id="products">
+    <div class="wrap">
+        <div class="products-intro fu">
             <div>
-                <div class="section-label">Practice Areas</div>
-                <h2 class="section-title">Our Core<br><em>Capabilities</em></h2>
+                <div class="s-label">Our Products</div>
+                <h2 class="s-title">Two Disciplines,<br><em>One Standard</em></h2>
             </div>
-            <p class="section-body">
-                Two complementary disciplines, each rooted in quantitative method and designed to serve institutional decision-making at the highest level.
-            </p>
+            <p class="s-body">From fund-level behavioral diagnostics to macro-regime research, our two products share the same commitment: quantitative transparency, no narrative without evidence.</p>
         </div>
-
-        <div class="services-grid fade-up">
-            <!-- Card 1 -->
-            <div class="service-card">
-                <span class="service-arrow">↗</span>
-                <div class="service-tag">Due Diligence</div>
-                <div class="service-title">Quantitative Hedge Fund Analysis</div>
-                <p class="service-text">
-                    We transform a standard Fact Sheet into a comprehensive risk assessment — reconciling track record data, isolating regime dependencies, and mapping the fund's positioning within its peer universe.
-                </p>
+        <div class="products-grid fu">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <span class="pc-arrow">↗</span>
+                <div class="pc-tag">Core Product · Due Diligence</div>
+                <div class="pc-title">Hedge Fund Risk &amp;<br>Behavior Diagnostic™</div>
+                <p class="pc-text">A structured, multi-dimensional quantitative assessment that goes beyond the fact sheet. We analyze what actually drives a fund's returns — and whether the manager's story matches the data.</p>
+                <ul class="pc-bullets">
+                    <li>Strategy Risk Fingerprint — return distribution, drawdown chronology</li>
+                    <li>Factor Attribution — BMA decomposition of alpha vs systematic exposures</li>
+                    <li>Regime &amp; Stress Testing — performance across 11 historical crisis scenarios</li>
+                    <li>Rolling Style Analysis — detecting drift and evolving risk pockets</li>
+                    <li>Peer Benchmarking — universe mapping across HFX hedge fund indices</li>
+                </ul>
+                <a href="due-diligence.html" class="btn btn-navy">Explore the DD Engine →</a>
             </div>
-            <!-- Card 2 -->
-            <div class="service-card">
-                <span class="service-arrow">↗</span>
-                <div class="service-tag">Factor Attribution</div>
-                <div class="service-title">BMA Attribution Framework</div>
-                <p class="service-text">
-                    Our proprietary Bootstrap Model Averaging framework uses Bayesian factor selection with a Zellner g-prior to decompose returns with statistical honesty — separating genuine alpha from systematic exposures.
-                </p>
-            </div>
-            <!-- Card 3 -->
-            <div class="service-card">
-                <span class="service-arrow">↗</span>
-                <div class="service-tag">Macro Allocation</div>
-                <div class="service-title">Cross-Asset Fundamental Research</div>
-                <p class="service-text">
-                    Systematic detection of valuation discrepancies between financial pricing and macro-economic fundamentals, with surveillance of volatility regimes and risk-parity deviations across asset classes.
-                </p>
+            <!-- Product 2 -->
+            <div class="product-card">
+                <span class="pc-arrow">↗</span>
+                <div class="pc-tag">Research Product · Macro</div>
+                <div class="pc-title">Macro Allocation<br>Research</div>
+                <p class="pc-text">Systematic, quantitative research into macro-economic regimes, cross-asset valuation gaps, and structural dynamics. Published as institutional-grade papers for allocators and portfolio managers.</p>
+                <ul class="pc-bullets">
+                    <li>Inflation transmission and PPI-to-CPI contagion channels</li>
+                    <li>FX carry dynamics — USD/JPY cycles, PPP thresholds</li>
+                    <li>Structural macro traps — fiscal pressure, rate normalisation, carry positioning</li>
+                    <li>Cross-asset valuation gap detection</li>
+                </ul>
+                <div style="display:flex; gap: 10px; flex-wrap:wrap;">
+                    <a href="research.html" class="btn btn-outline">Research Library</a>
+                    <a href="research.html#insider" class="btn btn-gold">Access Insider Research</a>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ── RESEARCH STRIP ────────────────────────────────────── -->
-<div id="research-strip">
-    <div class="research-strip-inner">
+<!-- DARK STRIP: Submit Fund -->
+<div class="dark-strip">
+    <div class="dark-strip-inner">
         <div>
-            <div class="research-strip-label">Research Library</div>
-            <div class="research-strip-title">Published institutional research covering macro regimes, valuation dynamics, and systematic risk.</div>
-            <div class="research-strip-sub">4 papers available — new research published regularly.</div>
+            <div class="ds-eyebrow">Fund Submission</div>
+            <div class="ds-title">Submit a Fund for Independent Analysis</div>
+            <div class="ds-sub">Send us a fact sheet or monthly returns — we handle the rest. Confidential by design.</div>
         </div>
-        <a href="research.html" class="btn btn-primary" style="white-space:nowrap; flex-shrink:0;">View All Research</a>
+        <div class="ds-btns">
+            <a href="#contact" class="btn btn-gold">Submit Fund →</a>
+            <a href="due-diligence.html" class="btn btn-ghost">How It Works</a>
+        </div>
     </div>
 </div>
 
-<!-- ── PROCESS ───────────────────────────────────────────── -->
-<section id="process">
-    <div class="container">
-        <div class="fade-up">
-            <div class="section-label">Methodology</div>
-            <h2 class="section-title">Our Analytical<br><em>Process</em></h2>
-        </div>
-
-        <div class="process-grid fade-up">
-            <div class="process-step">
-                <div class="process-step-num">01</div>
-                <div class="process-step-title">Baseline Ingestion</div>
-                <p class="process-step-text">We extract and reconcile raw track record data — monthly returns, volatility, drawdown profiles — establishing a behavioral baseline before any model is applied.</p>
-            </div>
-            <div class="process-step">
-                <div class="process-step-num">02</div>
-                <div class="process-step-title">Regime Stress Testing</div>
-                <p class="process-step-text">We isolate performance across macro stress events, revealing vulnerabilities concealed in benign market environments and establishing regime-conditional behavior profiles.</p>
-            </div>
-            <div class="process-step">
-                <div class="process-step-num">03</div>
-                <div class="process-step-title">Factor Attribution</div>
-                <p class="process-step-text">Our BMA framework decomposes return streams, distinguishing genuine alpha from systematic factor exposures with statistically robust confidence intervals.</p>
-            </div>
-            <div class="process-step">
-                <div class="process-step-num">04</div>
-                <div class="process-step-title">Universe Benchmarking</div>
-                <p class="process-step-text">Final placement within a curated peer group, mapping strategy positioning and differentiating alpha-generating managers from beta-heavy approaches.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ── CONTACT ───────────────────────────────────────────── -->
-<section id="contact">
-    <div class="container">
-        <div class="contact-grid">
-            <div class="fade-up">
-                <div class="section-label">Institutional Inquiries</div>
-                <h2 class="section-title">Get in<br><em>Touch</em></h2>
+<!-- ASSET CLASSES -->
+<section id="asset-classes">
+    <div class="wrap">
+        <div class="ac-grid">
+            <div class="fu">
+                <div class="s-label">Coverage Universe</div>
+                <h2 class="s-title">What We<br><em>Analyse</em></h2>
                 <div class="rule"></div>
-                <p class="section-body">
-                    For bespoke fund due diligence mandates, research access, or to discuss an analytical engagement, contact us directly.
-                </p>
-                <div class="contact-detail">
-                    <div>
-                        <div class="contact-item-label">Email</div>
-                        <div class="contact-item-val"><a href="mailto:info@nameanalytical.com" style="color:var(--navy);">info@nameanalytical.com</a></div>
-                    </div>
-                    <div>
-                        <div class="contact-item-label">Phone</div>
-                        <div class="contact-item-val">+32 489 97 61 16</div>
-                    </div>
-                    <div>
-                        <div class="contact-item-label">Location</div>
-                        <div class="contact-item-val">Brussels, Belgium</div>
-                    </div>
-                    <div>
-                        <div class="contact-item-label">Website</div>
-                        <div class="contact-item-val"><a href="https://www.nameanalytical.com" style="color:var(--navy);">www.nameanalytical.com</a></div>
-                    </div>
+                <p class="s-body">Our framework is designed for strategies where market prices drive valuations transparently — liquid, verifiable, and free from model-dependent pricing.</p>
+                <div class="ac-note">
+                    <strong>Out of scope:</strong> We do not cover strategies where NAV relies on mark-to-model valuation of illiquid assets — such as commercial real estate, private equity, or Level 3 instruments priced via discounted cash flow models. Pricing transparency is a prerequisite for meaningful quantitative diagnostics.
                 </div>
             </div>
-
-            <div class="contact-form-area fade-up">
-                <div class="form-row">
-                    <label>Full Name</label>
-                    <input type="text" placeholder="John Smith" />
+            <div class="fu">
+                <div class="ac-list">
+                    <div class="ac-item">
+                        <div class="ac-dot"></div>
+                        <div>
+                            <div class="ac-item-title">Global Macro &amp; Systematic Macro</div>
+                            <div class="ac-item-desc">Directional and model-driven strategies across rates, FX, equities and commodities. UCITS and offshore structures.</div>
+                        </div>
+                    </div>
+                    <div class="ac-item">
+                        <div class="ac-dot"></div>
+                        <div>
+                            <div class="ac-item-title">Long/Short Equity</div>
+                            <div class="ac-item-desc">Fundamental or quantitative equity strategies — including sector-focused, market-neutral, and regional mandates traded on liquid exchanges.</div>
+                        </div>
+                    </div>
+                    <div class="ac-item">
+                        <div class="ac-dot"></div>
+                        <div>
+                            <div class="ac-item-title">Fixed Income &amp; Credit</div>
+                            <div class="ac-item-desc">Investment-grade and high-yield credit, rates arbitrage, and fixed income relative value. Excludes private or illiquid credit.</div>
+                        </div>
+                    </div>
+                    <div class="ac-item">
+                        <div class="ac-dot"></div>
+                        <div>
+                            <div class="ac-item-title">CTA / Trend Following</div>
+                            <div class="ac-item-desc">Systematic managed futures and momentum strategies across diversified liquid futures markets.</div>
+                        </div>
+                    </div>
+                    <div class="ac-item">
+                        <div class="ac-dot"></div>
+                        <div>
+                            <div class="ac-item-title">Multi-Strategy &amp; Relative Value</div>
+                            <div class="ac-item-desc">Diversified strategies with verifiable, exchange-priced or OTC-cleared instruments. Excluding Level 3 or model-priced books.</div>
+                        </div>
+                    </div>
+                    <div class="ac-item">
+                        <div class="ac-dot"></div>
+                        <div>
+                            <div class="ac-item-title">Emerging Markets</div>
+                            <div class="ac-item-desc">EM-focused macro, equity, and fixed income strategies with track records in liquid, publicly-priced instruments.</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-row">
-                    <label>Organisation</label>
-                    <input type="text" placeholder="Pension Fund / Family Office / etc." />
-                </div>
-                <div class="form-row">
-                    <label>Email Address</label>
-                    <input type="email" placeholder="you@institution.com" />
-                </div>
-                <div class="form-row">
-                    <label>Nature of Enquiry</label>
-                    <select>
-                        <option value="">— Select —</option>
-                        <option>Hedge Fund Due Diligence</option>
-                        <option>Macro Allocation Research</option>
-                        <option>Research Library Access</option>
-                        <option>General Enquiry</option>
-                    </select>
-                </div>
-                <div class="form-row">
-                    <label>Message</label>
-                    <textarea placeholder="Briefly describe your analytical need…"></textarea>
-                </div>
-                <a href="mailto:info@nameanalytical.com" class="btn btn-primary" style="margin-top:0.5rem;">Submit Enquiry</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ── FOOTER ────────────────────────────────────────────── -->
-<footer id="foot">
-    <div class="foot-inner">
+<!-- WHO WE SERVE -->
+<section id="clients">
+    <div class="wrap">
+        <div class="clients-grid">
+            <div class="fu">
+                <div class="s-label">Who We Serve</div>
+                <h2 class="s-title">Built for<br><em>Allocators</em></h2>
+                <div class="rule"></div>
+                <p class="s-body">Our work is designed for institutions and individuals who make allocation decisions and need evidence-based diagnostics — not marketing materials.</p>
+                <p class="s-body" style="margin-top:0.8rem;">We serve clients globally, from our base in Brussels. Whether you are constructing a portfolio, conducting periodic monitoring, or challenging a manager's narrative, our analysis supports your process.</p>
+                <br><a href="#contact" class="btn btn-navy" style="margin-top:0.5rem;">Get in Touch</a>
+            </div>
+            <div class="fu">
+                <div class="client-types">
+                    <div class="client-type">
+                        <div class="ct-icon">🏛️</div>
+                        <div class="ct-name">Family Offices</div>
+                        <div class="ct-desc">Single and multi-family offices building or monitoring alternative allocations.</div>
+                    </div>
+                    <div class="client-type">
+                        <div class="ct-icon">🔗</div>
+                        <div class="ct-name">Funds of Funds</div>
+                        <div class="ct-desc">FoF managers requiring independent quantitative validation of underlying managers.</div>
+                    </div>
+                    <div class="client-type">
+                        <div class="ct-icon">📊</div>
+                        <div class="ct-name">Allocator Desks</div>
+                        <div class="ct-desc">In-house allocation teams at banks, insurers, or pension funds seeking specialist support.</div>
+                    </div>
+                    <div class="client-type">
+                        <div class="ct-icon">🏦</div>
+                        <div class="ct-name">Asset Managers</div>
+                        <div class="ct-desc">Portfolio managers seeking external attribution validation or cross-fund risk analysis.</div>
+                    </div>
+                    <div class="client-type">
+                        <div class="ct-icon">💼</div>
+                        <div class="ct-name">HNWIs &amp; Private Investors</div>
+                        <div class="ct-desc">Sophisticated individuals with direct hedge fund exposure seeking institutional-grade review.</div>
+                    </div>
+                    <div class="client-type">
+                        <div class="ct-icon">🤝</div>
+                        <div class="ct-name">Foundations &amp; Endowments</div>
+                        <div class="ct-desc">Institutional pools requiring transparent, reproducible analysis for investment committees.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROCESS: Selection vs Monitoring -->
+<section id="process">
+    <div class="wrap">
+        <div class="process-hdr fu">
+            <div>
+                <div class="s-label">Our Analytical Process</div>
+                <h2 class="s-title">Selection &amp; <em>Monitoring</em></h2>
+            </div>
+            <p class="s-body">Our DD Diagnostic serves two distinct use cases — initial fund selection and ongoing portfolio monitoring — each with a tailored analytical lens.</p>
+        </div>
+        <div class="process-tabs">
+            <button class="p-tab active" onclick="switchTab('selection', this)">Fund Selection</button>
+            <button class="p-tab" onclick="switchTab('monitoring', this)">Portfolio Monitoring</button>
+        </div>
+        <div class="process-panel active" id="tab-selection">
+            <div class="p-step">
+                <div class="p-num">01</div>
+                <div class="p-step-title">Understand the Strategy</div>
+                <p class="p-step-text">We extract and reconcile track record data — monthly returns, volatility, drawdown — to build a behavioral baseline. Does the empirical profile match what the manager claims?</p>
+            </div>
+            <div class="p-step">
+                <div class="p-num">02</div>
+                <div class="p-step-title">Decompose the Returns</div>
+                <p class="p-step-text">BMA factor attribution isolates genuine alpha from systematic risk premia — market beta, style factors, carry and convexity exposures. We identify what is actually driving performance.</p>
+            </div>
+            <div class="p-step">
+                <div class="p-num">03</div>
+                <div class="p-step-title">Stress &amp; Compare</div>
+                <p class="p-step-text">We test the strategy across 11 historical crisis scenarios and benchmark it against relevant peer indices — placing it in context within the global hedge fund universe.</p>
+            </div>
+        </div>
+        <div class="process-panel" id="tab-monitoring">
+            <div class="p-step">
+                <div class="p-num">01</div>
+                <div class="p-step-title">Detect Style Drift</div>
+                <p class="p-step-text">Rolling 36-month factor betas reveal whether a manager's exposures have shifted materially — identifying regime-driven adaptation versus unannounced strategy changes.</p>
+            </div>
+            <div class="p-step">
+                <div class="p-num">02</div>
+                <div class="p-step-title">Surface Emerging Risk</div>
+                <p class="p-step-text">We monitor for concentration build-up, tail-risk deterioration, and new factor exposures that may represent emerging vulnerabilities not visible in headline performance.</p>
+            </div>
+            <div class="p-step">
+                <div class="p-num">03</div>
+                <div class="p-step-title">Portfolio-Level Assessment</div>
+                <p class="p-step-text">Across a portfolio of funds, we identify systemic risk concentrations — for example, all funds simultaneously exhibiting high-volatility or correlated drawdown dynamics.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+    <div class="wrap">
+        <div class="booking-grid">
+            <div class="fu">
+                <div class="s-label">Book a Meeting</div>
+                <h2 class="s-title">30-Minute<br><em>Discovery Call</em></h2>
+                <div class="rule"></div>
+                <p class="s-body">Choose a time slot below and submit your details. We will confirm within 24 hours and send a Microsoft Teams link to both parties.</p>
+                <p class="s-body" style="margin-top:0.8rem;">We accommodate clients globally — slots are available in early morning and evening (Brussels time) to serve most time zones.</p>
+
+                <div class="time-slots" style="margin-top:2rem;">
+                    <div class="slot-group-title">Evening — Brussels (CET) · Suitable for Americas & Europe</div>
+                    <div class="time-slot" onclick="selectSlot('18:00–18:30 CET')">
+                        <div><div class="slot-time">18:00 – 18:30 CET</div><div class="slot-tz">12:00–12:30 ET · 09:00–09:30 PT</div></div>
+                        <span class="slot-btn">Select</span>
+                    </div>
+                    <div class="time-slot" onclick="selectSlot('18:30–19:00 CET')">
+                        <div><div class="slot-time">18:30 – 19:00 CET</div><div class="slot-tz">12:30–13:00 ET · 09:30–10:00 PT</div></div>
+                        <span class="slot-btn">Select</span>
+                    </div>
+                    <div class="time-slot" onclick="selectSlot('19:00–19:30 CET')">
+                        <div><div class="slot-time">19:00 – 19:30 CET</div><div class="slot-tz">13:00–13:30 ET · 10:00–10:30 PT</div></div>
+                        <span class="slot-btn">Select</span>
+                    </div>
+                    <div class="time-slot" onclick="selectSlot('20:00–20:30 CET')">
+                        <div><div class="slot-time">20:00 – 20:30 CET</div><div class="slot-tz">14:00–14:30 ET · 11:00–11:30 PT</div></div>
+                        <span class="slot-btn">Select</span>
+                    </div>
+                    <div class="time-slot" onclick="selectSlot('20:30–21:00 CET')">
+                        <div><div class="slot-time">20:30 – 21:00 CET</div><div class="slot-tz">14:30–15:00 ET · 11:30–12:00 PT</div></div>
+                        <span class="slot-btn">Select</span>
+                    </div>
+                    <div class="slot-group-title">Early Morning — Brussels (CET) · Suitable for Asia-Pacific</div>
+                    <div class="time-slot" onclick="selectSlot('05:00–05:30 CET')">
+                        <div><div class="slot-time">05:00 – 05:30 CET</div><div class="slot-tz">12:00–12:30 SGT · 13:00–13:30 JST</div></div>
+                        <span class="slot-btn">Select</span>
+                    </div>
+                    <div class="time-slot" onclick="selectSlot('05:30–06:00 CET')">
+                        <div><div class="slot-time">05:30 – 06:00 CET</div><div class="slot-tz">12:30–13:00 SGT · 13:30–14:00 JST</div></div>
+                        <span class="slot-btn">Select</span>
+                    </div>
+                    <div class="time-slot" onclick="selectSlot('06:00–06:30 CET')">
+                        <div><div class="slot-time">06:00 – 06:30 CET</div><div class="slot-tz">13:00–13:30 SGT · 14:00–14:30 JST</div></div>
+                        <span class="slot-btn">Select</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fu">
+                <div class="booking-form">
+                    <h4>Request a Meeting</h4>
+                    <div class="f-row">
+                        <label>Preferred Time Slot</label>
+                        <input type="text" id="selected-slot" placeholder="Click a slot on the left" readonly />
+                    </div>
+                    <div class="f-row">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Your name" />
+                    </div>
+                    <div class="f-row">
+                        <label>Institution</label>
+                        <input type="text" placeholder="Your firm name" />
+                    </div>
+                    <div class="f-row">
+                        <label>Job Title</label>
+                        <input type="text" placeholder="e.g. Head of Manager Selection" />
+                    </div>
+                    <div class="f-row">
+                        <label>Email Address</label>
+                        <input type="email" id="booking-email" placeholder="you@institution.com" />
+                    </div>
+                    <div class="f-row">
+                        <label>What would you like to discuss?</label>
+                        <select>
+                            <option value="">— Select —</option>
+                            <option>Fund Due Diligence (Selection)</option>
+                            <option>Portfolio Monitoring</option>
+                            <option>Macro Research Access</option>
+                            <option>General Enquiry</option>
+                        </select>
+                    </div>
+                    <a id="book-btn" href="#" class="btn btn-gold" style="margin-top:0.4rem; display:inline-block;">Confirm &amp; Book →</a>
+                    <p class="booking-note">A Teams link will be sent to your email and to info@nameanalytical.com within 24 hours of confirmation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT / SUBMIT FUND -->
+<section id="contact">
+    <div class="wrap">
+        <div class="contact-grid">
+            <div class="fu">
+                <div class="s-label">Contact</div>
+                <h2 class="s-title">Get in<br><em>Touch</em></h2>
+                <div class="rule"></div>
+                <p class="s-body">For bespoke mandates, research access, or general enquiries, reach us directly. We typically respond within one business day.</p>
+                <div class="contact-details">
+                    <div><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:info@nameanalytical.com" style="color:var(--navy)">info@nameanalytical.com</a></div></div>
+                    <div><div class="c-lbl">Phone</div><div class="c-val">+32 489 97 61 16</div></div>
+                    <div><div class="c-lbl">Location</div><div class="c-val">Brussels, Belgium — Serving clients globally</div></div>
+                </div>
+            </div>
+            <div class="fu">
+                <div class="submit-box">
+                    <h4>Submit a Fund for Analysis</h4>
+                    <p>Send us a fund fact sheet or monthly returns series. All submissions are confidential. We will assess the fund's eligibility and revert with a proposal.</p>
+                    <div class="submit-steps">
+                        <div class="submit-step"><div class="step-n">1</div><div class="step-t">Email your fact sheet or returns to <strong>info@nameanalytical.com</strong></div></div>
+                        <div class="submit-step"><div class="step-n">2</div><div class="step-t">Include your name, institution, and the nature of the engagement (selection or monitoring)</div></div>
+                        <div class="submit-step"><div class="step-n">3</div><div class="step-t">We confirm eligibility and turnaround within 48 hours</div></div>
+                    </div>
+                    <a href="mailto:info@nameanalytical.com?subject=Fund Submission for DD Analysis" class="btn btn-gold">Submit Fund by Email →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="wrap">
         <div class="foot-top">
             <div>
                 <div class="foot-brand">NAME Analytical</div>
-                <p class="foot-desc">Independent Quantitative Research & Advisory Lab. Specialised in Risk-Driven Investment Methodologies and Hedge Fund Due Diligence.</p>
+                <p class="foot-desc">Independent Quantitative Due Diligence &amp; Macro Research. Built for institutional allocators. Based in Brussels, serving clients globally.</p>
             </div>
             <div>
-                <div class="foot-col-title">Navigation</div>
+                <div class="foot-col-t">Products</div>
                 <ul class="foot-links">
-                    <li><a href="#mission">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#process">Methodology</a></li>
-                    <li><a href="research.html">Research</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="due-diligence.html">DD Engine</a></li>
+                    <li><a href="research.html">Macro Research</a></li>
+                    <li><a href="research.html#insider">Insider Research</a></li>
                 </ul>
             </div>
             <div>
-                <div class="foot-col-title">Contact</div>
+                <div class="foot-col-t">Navigate</div>
+                <ul class="foot-links">
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#asset-classes">Asset Classes</a></li>
+                    <li><a href="#clients">Who We Serve</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#booking">Book a Call</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="foot-col-t">Contact</div>
                 <ul class="foot-links">
                     <li><a href="mailto:info@nameanalytical.com">info@nameanalytical.com</a></li>
                     <li>+32 489 97 61 16</li>
                     <li>Brussels, Belgium</li>
-                    <li><a href="https://www.nameanalytical.com">www.nameanalytical.com</a></li>
+                    <li><a href="https://www.nameanalytical.com">nameanalytical.com</a></li>
                 </ul>
             </div>
         </div>
         <div class="foot-bottom">
-            <span>&copy; 2025 NAME Analytical. All Rights Reserved.</span>
+            <span>&copy; 2025 NAME Analytical. All Rights Reserved. Confidential — For Institutional Use Only.</span>
             <span class="gold">Independent Analytics. Institutional Rigor.</span>
         </div>
     </div>
 </footer>
 
 <script>
-    // Scroll-triggered fade-in
-    const fadeEls = document.querySelectorAll('.fade-up');
-    const obs = new IntersectionObserver((entries) => {
-        entries.forEach((e, i) => {
-            if (e.isIntersecting) {
-                setTimeout(() => e.target.classList.add('visible'), i * 80);
-                obs.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.12 });
-    fadeEls.forEach(el => obs.observe(el));
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10));
 
-    // Nav scroll shadow
-    const nav = document.getElementById('topnav');
-    window.addEventListener('scroll', () => {
-        nav.style.boxShadow = window.scrollY > 10 ? '0 2px 20px rgba(0,0,0,0.07)' : 'none';
+    // Fade in
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('vis'), i * 90); obs.unobserve(e.target); }});
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+
+    // Process tabs
+    function switchTab(id, btn) {
+        document.querySelectorAll('.p-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.process-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + id).classList.add('active');
+    }
+
+    // Booking slot selection
+    function selectSlot(slot) {
+        document.getElementById('selected-slot').value = slot;
+    }
+
+    // Book button - compose mailto
+    document.getElementById('book-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        const slot = document.getElementById('selected-slot').value || 'Not selected';
+        const email = document.getElementById('booking-email').value || '';
+        const subject = encodeURIComponent('Meeting Request — NAME Analytical: ' + slot);
+        const body = encodeURIComponent('Hello,\n\nI would like to book a 30-minute discovery call.\n\nPreferred slot: ' + slot + '\n\nMy details:\nName: \nInstitution: \nJob Title: \nEmail: ' + email + '\n\nTopic: \n\nThank you.');
+        window.location.href = 'mailto:info@nameanalytical.com?subject=' + subject + '&body=' + body;
     });
 </script>
 </body>

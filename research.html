@@ -4,756 +4,423 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Research Library | NAME Analytical</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
     <style>
-        /* ── RESET & TOKENS ── shared with index.html ────────── */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
         :root {
-            --navy:   #10202f;
-            --navy2:  #1a3248;
-            --gold:   #b8924a;
-            --gold-lt:#d4b07a;
-            --chalk:  #f5f3ef;
-            --white:  #ffffff;
-            --ink:    #2c3e50;
-            --muted:  #6b7c8d;
-            --border: #dde3ea;
-
-            --ff-display: 'Cormorant Garamond', Georgia, serif;
-            --ff-body:    'DM Sans', Helvetica, sans-serif;
-
-            --max: 1160px;
-            --pad: clamp(1.5rem, 5vw, 4rem);
+            --navy:#0f1e2d; --navy2:#172840; --gold:#b8924a; --gold-lt:#d4b07a;
+            --chalk:#f4f2ee; --white:#ffffff; --ink:#243040; --muted:#6b7c8d; --border:#dde3ea;
+            --ff-d:'Cormorant Garamond',Georgia,serif; --ff-b:'DM Sans',Helvetica,sans-serif;
+            --max:1180px; --pad:clamp(1.5rem,5vw,4rem);
         }
-
         html { scroll-behavior: smooth; }
+        body { font-family:var(--ff-b); font-weight:300; color:var(--ink); background:var(--white); line-height:1.7; font-size:15px; }
+        a { color:inherit; text-decoration:none; }
 
-        body {
-            font-family: var(--ff-body);
-            font-weight: 300;
-            color: var(--ink);
-            background: var(--white);
-            line-height: 1.7;
-            font-size: 15px;
+        /* NAV */
+        nav#nav { position:fixed; top:0; left:0; right:0; z-index:200; background:var(--white); border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding:0 var(--pad); height:66px; transition:box-shadow 0.3s; }
+        nav#nav.scrolled { box-shadow:0 2px 24px rgba(0,0,0,0.07); }
+        .nav-brand { display:flex; align-items:center; gap:13px; }
+        .nav-brand img { width:32px; opacity:0.9; }
+        .nav-firm { font-family:var(--ff-d); font-size:1.1rem; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--navy); }
+        .nav-tag { font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); font-weight:400; display:block; line-height:1; }
+        .nav-links { display:flex; align-items:center; gap:2rem; list-style:none; }
+        .nav-links a { font-size:0.71rem; letter-spacing:0.13em; text-transform:uppercase; color:var(--muted); transition:color 0.2s; }
+        .nav-links a:hover,.nav-links a.active { color:var(--navy); }
+        .nav-links .cta a { color:var(--navy); border:1px solid var(--navy); padding:7px 18px; font-size:0.67rem; transition:all 0.2s; }
+        .nav-links .cta a:hover { background:var(--navy); color:var(--white); }
+
+        /* PAGE HERO */
+        #phero { margin-top:66px; background:var(--navy); padding:clamp(4rem,9vw,8rem) var(--pad) clamp(3rem,6vw,5rem); position:relative; overflow:hidden; }
+        #phero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 80% 45%,rgba(184,146,74,0.08) 0%,transparent 55%); }
+        .phero-inner { max-width:var(--max); margin:0 auto; position:relative; z-index:2; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; }
+        .eyebrow { font-size:0.62rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); font-weight:400; margin-bottom:1.5rem; display:flex; align-items:center; gap:10px; }
+        .eyebrow::before { content:''; width:24px; height:1px; background:var(--gold); display:block; }
+        .phero h1 { font-family:var(--ff-d); font-size:clamp(2.4rem,4.5vw,4rem); font-weight:300; color:var(--white); line-height:1.08; }
+        .phero h1 em { font-style:italic; color:var(--gold-lt); }
+        .phero-r { font-size:0.91rem; color:rgba(255,255,255,0.55); line-height:1.8; }
+        .phero-note { margin-top:1.2rem; padding:1rem 1.3rem; background:rgba(184,146,74,0.1); border-left:2px solid var(--gold); font-size:0.8rem; color:rgba(255,255,255,0.6); }
+
+        /* SECTION COMMONS */
+        section { padding:clamp(4rem,8vw,6rem) var(--pad); }
+        .wrap { max-width:var(--max); margin:0 auto; }
+        .s-label { font-size:0.62rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); font-weight:400; margin-bottom:1.1rem; display:flex; align-items:center; gap:10px; }
+        .s-label::before { content:''; width:22px; height:1px; background:var(--gold); display:block; }
+        .s-title { font-family:var(--ff-d); font-size:clamp(1.9rem,3vw,2.6rem); font-weight:300; color:var(--navy); line-height:1.12; }
+        .s-title em { font-style:italic; color:var(--gold); }
+        .s-body { font-size:0.9rem; color:var(--muted); line-height:1.8; max-width:520px; margin-top:0.9rem; }
+        .btn { display:inline-block; font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase; font-weight:400; padding:11px 24px; cursor:pointer; transition:all 0.22s; }
+        .btn-gold { background:var(--gold); color:var(--navy); border:1px solid var(--gold); }
+        .btn-gold:hover { background:var(--gold-lt); }
+        .btn-outline { background:transparent; color:var(--navy); border:1px solid var(--border); }
+        .btn-outline:hover { border-color:var(--navy); }
+        .btn-ghost { background:transparent; color:var(--white); border:1px solid rgba(255,255,255,0.3); }
+        .btn-ghost:hover { border-color:var(--white); }
+
+        /* FILTER BAR */
+        #filter-bar { background:var(--chalk); border-bottom:1px solid var(--border); padding:0 var(--pad); }
+        .filter-inner { max-width:var(--max); margin:0 auto; display:flex; gap:0; overflow-x:auto; }
+        .f-btn { background:none; border:none; border-bottom:2px solid transparent; padding:1rem 1.4rem; font-family:var(--ff-b); font-size:0.67rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); cursor:pointer; white-space:nowrap; transition:all 0.2s; margin-bottom:-1px; }
+        .f-btn:hover { color:var(--navy); }
+        .f-btn.active { color:var(--navy); border-bottom-color:var(--gold); font-weight:500; }
+
+        /* AVAILABLE RESEARCH */
+        #available { background:var(--white); }
+        .avail-hdr { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:3.5rem; }
+        .papers-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+        .paper-card { background:var(--white); padding:2.8rem 2.4rem; display:flex; flex-direction:column; gap:1.1rem; transition:background 0.25s; position:relative; }
+        .paper-card:hover { background:var(--chalk); }
+        .paper-card.featured { grid-column:1/-1; display:grid; grid-template-columns:1fr 1fr; gap:3.5rem; align-items:center; background:var(--navy); padding:3.5rem; }
+        .paper-card.featured:hover { background:var(--navy2); }
+        .paper-tag { font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); font-weight:400; display:flex; align-items:center; gap:8px; }
+        .paper-tag::before { content:''; display:block; width:16px; height:1px; background:var(--gold); }
+        .featured .paper-tag { color:var(--gold-lt); }
+        .paper-title { font-family:var(--ff-d); font-size:1.6rem; font-weight:400; color:var(--navy); line-height:1.18; }
+        .featured .paper-title { font-size:2.1rem; color:var(--white); font-weight:300; }
+        .featured .paper-title em { font-style:italic; color:var(--gold-lt); }
+        .paper-abstract { font-size:0.84rem; color:var(--muted); line-height:1.75; }
+        .featured .paper-abstract { color:rgba(255,255,255,0.58); }
+
+        /* INSIDER RESEARCH */
+        #insider { background:var(--chalk); }
+        .insider-hdr { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; margin-bottom:3.5rem; }
+        .insider-badge { display:inline-block; font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; background:var(--gold); color:var(--navy); padding:5px 12px; font-weight:500; margin-bottom:1.2rem; }
+        .insider-card { background:var(--white); border:1px solid var(--border); padding:2.4rem; display:grid; grid-template-columns:1fr auto; gap:2rem; align-items:center; margin-bottom:1px; transition:background 0.2s; }
+        .insider-card:hover { background:#fffef9; }
+        .ic-tag { font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:0.7rem; }
+        .ic-title { font-family:var(--ff-d); font-size:1.25rem; font-weight:400; color:var(--navy); margin-bottom:0.5rem; }
+        .ic-desc { font-size:0.82rem; color:var(--muted); line-height:1.65; }
+        .ic-lock { text-align:center; }
+        .lock-icon { font-size:1.4rem; color:var(--gold); margin-bottom:0.4rem; }
+        .lock-label { font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); display:block; white-space:nowrap; }
+        .insider-form { background:var(--navy); padding:3rem; margin-top:3rem; }
+        .if-title { font-family:var(--ff-d); font-size:1.6rem; font-weight:300; color:var(--white); margin-bottom:0.5rem; }
+        .if-sub { font-size:0.85rem; color:rgba(255,255,255,0.5); margin-bottom:2rem; line-height:1.7; }
+        .if-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem; }
+        .if-row label { display:block; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:0.35rem; }
+        .if-row input,.if-row select { width:100%; border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.04); padding:9px 13px; font-family:var(--ff-b); font-size:0.86rem; color:var(--white); outline:none; transition:border-color 0.2s; -webkit-appearance:none; }
+        .if-row input::placeholder { color:rgba(255,255,255,0.22); }
+        .if-row input:focus,.if-row select:focus { border-color:var(--gold); }
+        .if-row select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,0.4)'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; background-color:rgba(255,255,255,0.04); padding-right:34px; cursor:pointer; color:rgba(255,255,255,0.55); }
+        .if-note { font-size:0.74rem; color:rgba(255,255,255,0.28); margin-top:0.8rem; line-height:1.6; }
+
+        /* PIPELINE */
+        #pipeline { background:var(--white); }
+        .pipeline-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
+        .pipe-items { list-style:none; display:flex; flex-direction:column; gap:1.5rem; margin-top:2rem; }
+        .pipe-item { display:flex; gap:1.2rem; align-items:flex-start; }
+        .pi-dot { width:8px; height:8px; border-radius:50%; background:var(--gold); flex-shrink:0; margin-top:6px; }
+        .pi-dot.planned { background:var(--navy); }
+        .pi-title { font-size:0.87rem; color:var(--navy); font-weight:400; margin-bottom:0.15rem; }
+        .pi-status { font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
+
+        /* FOOTER */
+        footer { background:var(--navy); color:rgba(255,255,255,0.5); padding:clamp(3rem,6vw,5rem) var(--pad) 2.5rem; }
+        .foot-top { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:3rem; padding-bottom:3rem; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:2rem; }
+        .foot-brand { font-family:var(--ff-d); font-size:1.05rem; font-weight:400; color:var(--white); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.7rem; }
+        .foot-desc { font-size:0.82rem; line-height:1.7; }
+        .foot-col-t { font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:1.1rem; }
+        .foot-links { list-style:none; display:flex; flex-direction:column; gap:0.55rem; }
+        .foot-links a { font-size:0.83rem; color:rgba(255,255,255,0.5); transition:color 0.2s; }
+        .foot-links a:hover { color:var(--white); }
+        .foot-bottom { display:flex; justify-content:space-between; align-items:center; font-size:0.74rem; }
+        .foot-bottom .gold { color:var(--gold); }
+
+        /* MODAL */
+        .modal-overlay { display:none; position:fixed; inset:0; background:rgba(10,20,30,0.75); z-index:500; align-items:center; justify-content:center; }
+        .modal-overlay.open { display:flex; }
+        .modal { background:var(--white); max-width:520px; width:90%; padding:3rem; position:relative; }
+        .modal-close { position:absolute; top:1rem; right:1.2rem; background:none; border:none; font-size:1.3rem; cursor:pointer; color:var(--muted); }
+        .modal h3 { font-family:var(--ff-d); font-size:1.6rem; font-weight:400; color:var(--navy); margin-bottom:0.5rem; }
+        .modal p { font-size:0.84rem; color:var(--muted); margin-bottom:1.5rem; line-height:1.7; }
+        .m-row { margin-bottom:0.9rem; }
+        .m-row label { display:block; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:0.35rem; }
+        .m-row input,.m-row select { width:100%; border:1px solid var(--border); background:var(--chalk); padding:9px 13px; font-family:var(--ff-b); font-size:0.87rem; color:var(--ink); outline:none; transition:border-color 0.2s; -webkit-appearance:none; }
+        .m-row input:focus,.m-row select:focus { border-color:var(--gold); }
+        .m-row select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7c8d'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; background-color:var(--chalk); padding-right:34px; cursor:pointer; }
+
+        /* FADE */
+        .fu { opacity:0; transform:translateY(22px); transition:opacity 0.6s ease,transform 0.6s ease; }
+        .fu.vis { opacity:1; transform:none; }
+
+        /* RESPONSIVE */
+        @media (max-width:960px) {
+            .phero-inner,.avail-hdr,.insider-hdr,.pipeline-grid,.if-grid,.foot-top { grid-template-columns:1fr; gap:2rem; }
+            .papers-grid,.paper-card.featured { grid-template-columns:1fr; }
+            .paper-card.featured { grid-column:auto; padding:2.2rem 1.8rem; }
+            .insider-card { grid-template-columns:1fr; }
+            .nav-links .cta { display:none; }
+            .nav-links { gap:1.2rem; }
         }
-
-        a { color: inherit; text-decoration: none; }
-
-        /* ── NAV (identical to index) ──────────────────────── */
-        nav#topnav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            background: var(--white);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 var(--pad);
-            height: 68px;
-        }
-
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .nav-brand img { width: 34px; height: auto; opacity: 0.92; }
-
-        .nav-brand-text { display: flex; flex-direction: column; line-height: 1.1; }
-
-        .nav-brand-text .firm {
-            font-family: var(--ff-display);
-            font-size: 1.15rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            color: var(--navy);
-            text-transform: uppercase;
-        }
-
-        .nav-brand-text .tagline {
-            font-size: 0.65rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--gold);
-            font-weight: 400;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 2.4rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            font-size: 0.72rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted);
-            font-weight: 400;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover, .nav-links a.active { color: var(--navy); }
-
-        .nav-links .nav-cta a {
-            color: var(--navy);
-            border: 1px solid var(--navy);
-            padding: 7px 18px;
-            font-size: 0.68rem;
-            letter-spacing: 0.14em;
-            transition: background 0.2s, color 0.2s;
-        }
-
-        .nav-links .nav-cta a:hover {
-            background: var(--navy);
-            color: var(--white);
-        }
-
-        /* ── PAGE HERO ──────────────────────────────────────── */
-        #page-hero {
-            margin-top: 68px;
-            background: var(--navy);
-            padding: clamp(4rem, 9vw, 8rem) var(--pad) clamp(3rem, 6vw, 5rem);
-            position: relative;
-            overflow: hidden;
-        }
-
-        #page-hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 80% 50%, rgba(184,146,74,0.07) 0%, transparent 55%);
-        }
-
-        .page-hero-inner {
-            max-width: var(--max);
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: end;
-        }
-
-        .page-eyebrow {
-            font-size: 0.64rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--gold);
-            font-weight: 400;
-            margin-bottom: 1.4rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .page-eyebrow::before {
-            content: '';
-            display: block;
-            width: 24px;
-            height: 1px;
-            background: var(--gold);
-        }
-
-        .page-title {
-            font-family: var(--ff-display);
-            font-size: clamp(2.4rem, 4.5vw, 4rem);
-            font-weight: 300;
-            color: var(--white);
-            line-height: 1.08;
-        }
-
-        .page-title em { font-style: italic; color: var(--gold-lt); }
-
-        .page-desc {
-            font-size: 0.93rem;
-            color: rgba(255,255,255,0.55);
-            line-height: 1.8;
-            align-self: end;
-        }
-
-        /* ── FILTER BAR ─────────────────────────────────────── */
-        #filter-bar {
-            background: var(--chalk);
-            border-bottom: 1px solid var(--border);
-            padding: 0 var(--pad);
-        }
-
-        .filter-inner {
-            max-width: var(--max);
-            margin: 0 auto;
-            display: flex;
-            gap: 0;
-            overflow-x: auto;
-        }
-
-        .filter-btn {
-            background: none;
-            border: none;
-            border-bottom: 2px solid transparent;
-            padding: 1.1rem 1.4rem;
-            font-family: var(--ff-body);
-            font-size: 0.68rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted);
-            cursor: pointer;
-            white-space: nowrap;
-            transition: color 0.2s, border-color 0.2s;
-        }
-
-        .filter-btn:hover { color: var(--navy); }
-        .filter-btn.active { color: var(--navy); border-bottom-color: var(--gold); font-weight: 500; }
-
-        /* ── RESEARCH GRID ──────────────────────────────────── */
-        #research-grid {
-            background: var(--white);
-            padding: clamp(3rem, 6vw, 5rem) var(--pad);
-        }
-
-        .grid-inner {
-            max-width: var(--max);
-            margin: 0 auto;
-        }
-
-        .papers-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-        }
-
-        /* Featured card (spans 2 columns) */
-        .paper-card {
-            background: var(--white);
-            padding: 2.8rem 2.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-            transition: background 0.25s;
-            position: relative;
-        }
-
-        .paper-card:hover { background: var(--chalk); }
-
-        .paper-card.featured {
-            grid-column: 1 / -1;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3.5rem;
-            align-items: center;
-            background: var(--navy);
-            padding: 3.5rem;
-        }
-
-        .paper-card.featured:hover { background: var(--navy2); }
-
-        .featured-label-col { display: flex; flex-direction: column; gap: 1.2rem; }
-
-        .featured-body-col {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-            justify-content: center;
-        }
-
-        .paper-tag {
-            font-size: 0.62rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--gold);
-            font-weight: 400;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .paper-tag::before {
-            content: '';
-            display: block;
-            width: 18px;
-            height: 1px;
-            background: var(--gold);
-        }
-
-        .featured .paper-tag { color: var(--gold-lt); }
-
-        .paper-title {
-            font-family: var(--ff-display);
-            font-size: 1.65rem;
-            font-weight: 400;
-            color: var(--navy);
-            line-height: 1.2;
-        }
-
-        .featured .paper-title {
-            font-size: 2.2rem;
-            color: var(--white);
-            font-weight: 300;
-        }
-
-        .featured .paper-title em { font-style: italic; color: var(--gold-lt); }
-
-        .paper-abstract {
-            font-size: 0.86rem;
-            color: var(--muted);
-            line-height: 1.75;
-        }
-
-        .featured .paper-abstract { color: rgba(255,255,255,0.6); }
-
-        .paper-meta {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .paper-meta-item {
-            font-size: 0.68rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-
-        .featured .paper-meta-item { color: rgba(255,255,255,0.4); }
-
-        .paper-meta-item span {
-            color: var(--navy);
-            font-weight: 500;
-        }
-
-        .featured .paper-meta-item span { color: rgba(255,255,255,0.8); }
-
-        .btn {
-            display: inline-block;
-            font-size: 0.7rem;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            font-weight: 400;
-            padding: 11px 26px;
-            cursor: pointer;
-            transition: all 0.22s;
-            border: none;
-        }
-
-        .btn-gold {
-            background: var(--gold);
-            color: var(--navy);
-        }
-
-        .btn-gold:hover { background: var(--gold-lt); }
-
-        .btn-dark {
-            background: transparent;
-            color: var(--navy);
-            border: 1px solid var(--border);
-        }
-
-        .btn-dark:hover { border-color: var(--navy); }
-
-        .btn-outline-white {
-            background: transparent;
-            color: var(--white);
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .btn-outline-white:hover {
-            border-color: var(--white);
-            background: rgba(255,255,255,0.06);
-        }
-
-        /* ── UPCOMING / NEWSLETTER ──────────────────────────── */
-        #newsletter {
-            background: var(--chalk);
-            padding: clamp(3.5rem, 7vw, 6rem) var(--pad);
-        }
-
-        .newsletter-inner {
-            max-width: var(--max);
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            align-items: center;
-        }
-
-        .section-label {
-            font-size: 0.64rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--gold);
-            font-weight: 400;
-            margin-bottom: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-label::before {
-            content: '';
-            display: block;
-            width: 24px;
-            height: 1px;
-            background: var(--gold);
-        }
-
-        .section-title {
-            font-family: var(--ff-display);
-            font-size: clamp(1.8rem, 3vw, 2.6rem);
-            font-weight: 300;
-            color: var(--navy);
-            line-height: 1.15;
-        }
-
-        .section-title em { font-style: italic; color: var(--gold); }
-
-        .section-body {
-            font-size: 0.9rem;
-            color: var(--muted);
-            line-height: 1.8;
-            margin-top: 1rem;
-        }
-
-        .upcoming-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            border: 1px solid var(--border);
-            background: var(--white);
-        }
-
-        .upcoming-item {
-            padding: 1.5rem 1.8rem;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-        }
-
-        .upcoming-item:last-child { border-bottom: none; }
-
-        .upcoming-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--gold);
-            margin-top: 7px;
-            flex-shrink: 0;
-        }
-
-        .upcoming-dot.soon { background: var(--navy); }
-
-        .upcoming-text .up-title {
-            font-size: 0.88rem;
-            color: var(--navy);
-            font-weight: 400;
-            margin-bottom: 0.2rem;
-        }
-
-        .upcoming-text .up-status {
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-
-        /* ── FOOTER ─────────────────────────────────────────── */
-        footer#foot {
-            background: var(--navy);
-            color: rgba(255,255,255,0.55);
-            padding: clamp(3rem, 6vw, 5rem) var(--pad) 2.5rem;
-        }
-
-        .foot-inner { max-width: var(--max); margin: 0 auto; }
-
-        .foot-top {
-            display: grid;
-            grid-template-columns: 1.4fr 1fr 1fr;
-            gap: 4rem;
-            padding-bottom: 3rem;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            margin-bottom: 2rem;
-        }
-
-        .foot-brand {
-            font-family: var(--ff-display);
-            font-size: 1.1rem;
-            font-weight: 400;
-            color: var(--white);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 0.8rem;
-        }
-
-        .foot-desc { font-size: 0.83rem; line-height: 1.7; }
-
-        .foot-col-title {
-            font-size: 0.63rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 1.2rem;
-        }
-
-        .foot-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-
-        .foot-links a {
-            font-size: 0.84rem;
-            color: rgba(255,255,255,0.55);
-            transition: color 0.2s;
-        }
-
-        .foot-links a:hover { color: var(--white); }
-
-        .foot-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.75rem;
-        }
-
-        .foot-bottom .gold { color: var(--gold); }
-
-        /* ── FADE ANIMATIONS ────────────────────────────────── */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-up.visible { opacity: 1; transform: none; }
-
-        /* ── RESPONSIVE ─────────────────────────────────────── */
-        @media (max-width: 900px) {
-            .page-hero-inner,
-            .papers-grid,
-            .paper-card.featured,
-            .newsletter-inner,
-            .foot-top {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .paper-card.featured {
-                grid-column: auto;
-                padding: 2.2rem 1.8rem;
-            }
-
-            .nav-links .nav-cta { display: none; }
-            .nav-links { gap: 1.2rem; }
-        }
-
-        @media (max-width: 600px) {
-            .nav-links { display: none; }
-        }
+        @media (max-width:600px) { .nav-links { display:none; } }
     </style>
 </head>
 <body>
 
-<!-- ── NAV ──────────────────────────────────────────────── -->
-<nav id="topnav">
+<!-- NAV -->
+<nav id="nav">
     <div class="nav-brand">
         <img src="NAME_without_text1.png" alt="NAME Analytical" />
-        <div class="nav-brand-text">
-            <span class="firm">NAME Analytical</span>
-            <span class="tagline">Independent Analytics. Institutional Rigor.</span>
+        <div>
+            <span class="nav-firm">NAME Analytical</span>
+            <span class="nav-tag">Independent Analytics · Institutional Rigor</span>
         </div>
     </div>
     <ul class="nav-links">
-        <li><a href="index.html#mission">About</a></li>
-        <li><a href="index.html#services">Services</a></li>
-        <li><a href="index.html#process">Process</a></li>
+        <li><a href="index.html#products">Products</a></li>
+        <li><a href="index.html#asset-classes">Asset Classes</a></li>
+        <li><a href="index.html#clients">Who We Serve</a></li>
+        <li><a href="due-diligence.html">DD Engine</a></li>
         <li><a href="research.html" class="active">Research</a></li>
-        <li class="nav-cta"><a href="index.html#contact">Inquiries</a></li>
+        <li><a href="index.html#booking">Book a Call</a></li>
+        <li class="cta"><a href="#insider">Insider Access</a></li>
     </ul>
 </nav>
 
-<!-- ── PAGE HERO ─────────────────────────────────────────── -->
-<div id="page-hero">
-    <div class="page-hero-inner">
+<!-- PAGE HERO -->
+<div id="phero">
+    <div class="phero-inner">
         <div>
-            <div class="page-eyebrow">Strategic Research Library</div>
-            <h1 class="page-title">Institutional<br><em>Quantitative Research</em></h1>
+            <div class="eyebrow">Macro Allocation Research</div>
+            <h1>Strategic Research<br><em>Library</em></h1>
         </div>
-        <p class="page-desc">
-            Original, peer-reviewed analytical frameworks covering macro regimes, valuation dynamics, currency cycles, and systematic risk — published for institutional investors.
-        </p>
+        <div class="phero-r">
+            <p>Original quantitative research on macro regimes, currency dynamics, inflation transmission, and structural market risks — published for institutional allocators globally.</p>
+            <div class="phero-note">
+                <strong style="color:var(--gold-lt);">Research Access Tiers:</strong> Published papers are freely available. Upcoming and in-depth analytical work will be progressively available to registered Insider Access subscribers only.
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- ── FILTER BAR ────────────────────────────────────────── -->
+<!-- FILTER BAR -->
 <div id="filter-bar">
     <div class="filter-inner">
-        <button class="filter-btn active" onclick="filterPapers('all', this)">All Research</button>
-        <button class="filter-btn" onclick="filterPapers('macro', this)">Macro Frameworks</button>
-        <button class="filter-btn" onclick="filterPapers('fx', this)">FX & Carry</button>
-        <button class="filter-btn" onclick="filterPapers('inflation', this)">Inflation</button>
+        <button class="f-btn active" onclick="filterPapers('all',this)">All Research</button>
+        <button class="f-btn" onclick="filterPapers('macro',this)">Macro Frameworks</button>
+        <button class="f-btn" onclick="filterPapers('fx',this)">FX &amp; Carry</button>
+        <button class="f-btn" onclick="filterPapers('inflation',this)">Inflation</button>
     </div>
 </div>
 
-<!-- ── RESEARCH PAPERS ───────────────────────────────────── -->
-<section id="research-grid">
-    <div class="grid-inner">
-
+<!-- AVAILABLE RESEARCH -->
+<section id="available">
+    <div class="wrap">
+        <div class="avail-hdr fu">
+            <div>
+                <div class="s-label">Available Research · Open Access</div>
+                <h2 class="s-title">Published<br><em>Papers</em></h2>
+            </div>
+            <p class="s-body">The following papers are published and freely accessible. Click "Open PDF" to download directly — no registration required.</p>
+        </div>
         <div class="papers-grid" id="papers-grid">
 
-            <!-- FEATURED: Latest / most prominent paper -->
-            <article class="paper-card featured fade-up" data-category="inflation">
-                <div class="featured-label-col">
+            <!-- FEATURED -->
+            <article class="paper-card featured fu" data-cat="inflation">
+                <div>
                     <div class="paper-tag">Global Inflation · Featured</div>
                     <h2 class="paper-title">How China's Producer Prices<br><em>Transmit Inflation</em></h2>
-                    <div class="paper-meta">
-                        <div class="paper-meta-item">Category <span>Global Inflation</span></div>
-                        <div class="paper-meta-item">Format <span>PDF</span></div>
-                    </div>
-                    <div>
-                        <a href="papers/Inflation_Contagion.pdf" class="btn btn-gold" target="_blank">Download PDF</a>
+                    <div style="margin-top:1rem; display:flex; gap:10px; flex-wrap:wrap;">
+                        <a href="papers/Inflation_Contagion.pdf" class="btn btn-gold" target="_blank">Open PDF</a>
+                        <a href="#insider" class="btn btn-ghost">Get Insider Updates</a>
                     </div>
                 </div>
-                <div class="featured-body-col">
-                    <p class="paper-abstract">
-                        A transmission framework examining how cost shocks within China's manufacturing complex propagate into Western inflation cycles. The paper maps the structural channels — from factory-gate PPI to CPI in the US and European economies — and quantifies the lag structure and regime dependencies of this contagion mechanism.
-                    </p>
-                    <p class="paper-abstract" style="font-style:italic; font-size:0.82rem;">
-                        "The World Factory speaks first — Western central banks respond to echoes they don't always recognise."
-                    </p>
-                </div>
+                <p class="paper-abstract">A transmission framework examining how cost shocks within China's manufacturing complex propagate into Western inflation cycles. The paper maps structural channels from factory-gate PPI to CPI in the US and Europe, quantifying lag structures and regime dependencies of this contagion mechanism.</p>
             </article>
 
             <!-- PAPER 1 -->
-            <article class="paper-card fade-up" data-category="fx">
-                <div class="paper-tag">FX &amp; Carry · Quantitative Study</div>
+            <article class="paper-card fu" data-cat="fx">
+                <div class="paper-tag">FX &amp; Carry · Regime Detection</div>
                 <h3 class="paper-title">Trading USD/JPY Cycles</h3>
-                <p class="paper-abstract">
-                    Applying clustering methods to detect structural transitions between carry-trade dominance and mean-reversion regimes in USD/JPY since 1996. The framework identifies regime entry and exit signals with cross-validated out-of-sample precision.
-                </p>
-                <div class="paper-meta">
-                    <div class="paper-meta-item">Category <span>Regime Detection</span></div>
-                    <div class="paper-meta-item">Format <span>PDF</span></div>
-                </div>
-                <div>
-                    <a href="papers/usdjpy_cycles.pdf" class="btn btn-dark" target="_blank">Download PDF</a>
-                </div>
+                <p class="paper-abstract">Applying clustering methods to detect structural transitions between carry-trade dominance and mean-reversion regimes in USD/JPY since 1996, with cross-validated out-of-sample signal precision.</p>
+                <div><a href="papers/usdjpy_cycles.pdf" class="btn btn-outline" target="_blank">Open PDF</a></div>
             </article>
 
             <!-- PAPER 2 -->
-            <article class="paper-card fade-up" data-category="fx">
+            <article class="paper-card fu" data-cat="fx">
                 <div class="paper-tag">FX &amp; Carry · Valuation Framework</div>
                 <h3 class="paper-title">JPY Carry Trade &amp; PPP</h3>
-                <p class="paper-abstract">
-                    A valuation-driven framework linking carry trade dynamics to purchasing power parity thresholds. The paper establishes a model for identifying mean-reversion events and positions the yen's structural undervaluation within a macro-fundamental context.
-                </p>
-                <div class="paper-meta">
-                    <div class="paper-meta-item">Category <span>Quantitative Study</span></div>
-                    <div class="paper-meta-item">Format <span>PDF</span></div>
-                </div>
-                <div>
-                    <a href="papers/jpy_carry_ppp.pdf" class="btn btn-dark" target="_blank">Download PDF</a>
-                </div>
+                <p class="paper-abstract">A valuation-driven framework linking carry trade dynamics to purchasing power parity thresholds, establishing a model for identifying mean-reversion events and the yen's structural undervaluation.</p>
+                <div><a href="papers/jpy_carry_ppp.pdf" class="btn btn-outline" target="_blank">Open PDF</a></div>
             </article>
 
             <!-- PAPER 3 -->
-            <article class="paper-card fade-up" data-category="macro">
+            <article class="paper-card fu" data-cat="macro">
                 <div class="paper-tag">Macro Framework · Structural Analysis</div>
                 <h3 class="paper-title">The Triangle Trap</h3>
-                <p class="paper-abstract">
-                    A structural model examining the interaction between fiscal pressure, interest rate normalisation, and global carry positioning. The paper analyses the self-reinforcing dynamics of Japan's macro trilemma and its systemic spillover risks for global fixed income and FX.
-                </p>
-                <div class="paper-meta">
-                    <div class="paper-meta-item">Category <span>Macro Framework</span></div>
-                    <div class="paper-meta-item">Format <span>PDF</span></div>
-                </div>
-                <div>
-                    <a href="papers/Japan_Trap_Research.pdf" class="btn btn-dark" target="_blank">Download PDF</a>
-                </div>
+                <p class="paper-abstract">A structural model examining the interaction between fiscal pressure, interest rate normalisation, and global carry positioning — analysing Japan's macro trilemma and its systemic spillover risks for global fixed income and FX.</p>
+                <div><a href="papers/Japan_Trap_Research.pdf" class="btn btn-outline" target="_blank">Open PDF</a></div>
             </article>
 
         </div>
     </div>
 </section>
 
-<!-- ── UPCOMING / PIPELINE ────────────────────────────────── -->
-<section id="newsletter">
-    <div class="newsletter-inner">
-        <div class="fade-up">
-            <div class="section-label">Research Pipeline</div>
-            <h2 class="section-title">Upcoming<br><em>Publications</em></h2>
-            <p class="section-body">
-                Our research agenda is driven by macro regime shifts and institutional demand. New papers are released periodically across our core practice areas.
-            </p>
-            <br>
-            <a href="mailto:info@nameanalytical.com?subject=Research Access" class="btn btn-gold" style="margin-top:0.5rem;">Request Research Access</a>
+<!-- INSIDER RESEARCH -->
+<section id="insider">
+    <div class="wrap">
+        <div class="insider-hdr fu">
+            <div>
+                <span class="insider-badge">Insider Access</span>
+                <h2 class="s-title">Exclusive &amp; <em>Upcoming Research</em></h2>
+                <p class="s-body">Insider subscribers receive early access to new research, in-depth analytical notes, and model updates not available in the open library. Register once — no subscription fee currently.</p>
+            </div>
+            <div>
+                <p class="s-body">As our research output grows, selected papers will be restricted to Insider Access. All current publications remain open. Future work — including technical white papers and data-intensive macro notes — will be progressively tiered.</p>
+                <br><p class="s-body" style="font-style:italic; color:var(--gold);">Currently, all published research is open access. Register now to be first to receive new releases.</p>
+            </div>
         </div>
 
-        <div class="upcoming-list fade-up">
-            <div class="upcoming-item">
-                <div class="upcoming-dot soon"></div>
-                <div class="upcoming-text">
-                    <div class="up-title">BMA Attribution Methodology — Technical White Paper</div>
-                    <div class="up-status">In preparation · Hedge Fund Analytics</div>
+        <!-- Upcoming insider papers (locked) -->
+        <div class="fu">
+            <div class="insider-card">
+                <div>
+                    <div class="ic-tag">Hedge Fund Analytics · Technical White Paper</div>
+                    <div class="ic-title">BMA Attribution Methodology — Full Technical Paper</div>
+                    <div class="ic-desc">Complete mathematical framework and empirical validation of the Bootstrap Model Averaging attribution model, including Zellner g-prior derivation, Dirichlet benchmark prior, and back-test results.</div>
+                </div>
+                <div class="ic-lock">
+                    <div class="lock-icon">🔒</div>
+                    <span class="lock-label">Insider Only</span>
+                    <br><span class="lock-label" style="color:var(--gold); margin-top:4px; display:block;">In Preparation</span>
                 </div>
             </div>
-            <div class="upcoming-item">
-                <div class="upcoming-dot"></div>
-                <div class="upcoming-text">
-                    <div class="up-title">Volatility Regime Surveillance — Cross-Asset Framework</div>
-                    <div class="up-status">Planned · Macro Allocation</div>
+            <div class="insider-card">
+                <div>
+                    <div class="ic-tag">Macro Risk · Analytical Note</div>
+                    <div class="ic-title">Geopolitical Shocks &amp; Asset Class Drawdowns — Quantitative Review</div>
+                    <div class="ic-desc">A quantitative assessment of how geopolitical dislocations have historically transmitted into drawdown sequences across equities, credit, FX, and commodities — with recovery cycle analysis.</div>
+                </div>
+                <div class="ic-lock">
+                    <div class="lock-icon">🔒</div>
+                    <span class="lock-label">Insider Only</span>
+                    <br><span class="lock-label" style="color:var(--gold); margin-top:4px; display:block;">Planned</span>
                 </div>
             </div>
-            <div class="upcoming-item">
-                <div class="upcoming-dot"></div>
-                <div class="upcoming-text">
-                    <div class="up-title">Geopolitical Shock Impact on Asset Classes</div>
-                    <div class="up-status">Planned · Macro Risk</div>
+            <div class="insider-card">
+                <div>
+                    <div class="ic-tag">FX Research · Valuation Model</div>
+                    <div class="ic-title">EUR/USD Fundamental Valuation Framework</div>
+                    <div class="ic-desc">A cross-asset fundamental model for EUR/USD fair value, integrating interest rate differentials, inflation dynamics, and current account balances into a regime-conditional valuation band.</div>
+                </div>
+                <div class="ic-lock">
+                    <div class="lock-icon">🔒</div>
+                    <span class="lock-label">Insider Only</span>
+                    <br><span class="lock-label" style="color:var(--gold); margin-top:4px; display:block;">Planned</span>
                 </div>
             </div>
-            <div class="upcoming-item">
-                <div class="upcoming-dot"></div>
-                <div class="upcoming-text">
-                    <div class="up-title">EUR/USD Fundamental Valuation Framework</div>
-                    <div class="up-status">Conceptual · FX Research</div>
+        </div>
+
+        <!-- ACCESS FORM -->
+        <div class="insider-form fu">
+            <div class="if-title">Register for Insider Access</div>
+            <div class="if-sub">Complete your details below. We will send you a download link and notify you of new releases. All fields are required — information is used solely to ensure research reaches appropriate institutional recipients.</div>
+            <div class="if-grid">
+                <div class="if-row"><label>Full Name</label><input type="text" placeholder="Your name" /></div>
+                <div class="if-row"><label>Job Title</label><input type="text" placeholder="e.g. Head of Manager Selection" /></div>
+                <div class="if-row"><label>Institution</label><input type="text" placeholder="Your firm name" /></div>
+                <div class="if-row"><label>Institution Type</label>
+                    <select>
+                        <option value="">— Select —</option>
+                        <option>Family Office</option>
+                        <option>Fund of Funds</option>
+                        <option>Allocator Desk (Bank / Insurer / Pension)</option>
+                        <option>Asset Manager</option>
+                        <option>HNWI / Private Investor</option>
+                        <option>Foundation / Endowment</option>
+                        <option>Academic / Research</option>
+                        <option>Other</option>
+                    </select>
                 </div>
+                <div class="if-row"><label>Email Address</label><input id="insider-email" type="email" placeholder="you@institution.com" /></div>
+                <div class="if-row"><label>Region</label>
+                    <select>
+                        <option value="">— Select —</option>
+                        <option>Western Europe</option>
+                        <option>UK</option>
+                        <option>North America</option>
+                        <option>Latin America</option>
+                        <option>Middle East &amp; Africa</option>
+                        <option>Asia-Pacific</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+            </div>
+            <a id="insider-btn" href="#" class="btn btn-gold">Request Insider Access →</a>
+            <p class="if-note">By registering, you confirm you are an institutional or professional investor. NAME Analytical does not share contact details with third parties. We typically respond within 48 hours.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PIPELINE -->
+<section id="pipeline">
+    <div class="wrap">
+        <div class="pipeline-grid">
+            <div class="fu">
+                <div class="s-label">Research Pipeline</div>
+                <h2 class="s-title">Upcoming<br><em>Publications</em></h2>
+                <p class="s-body">Our research agenda is driven by macro regime shifts and institutional demand. Papers are released periodically across our core coverage areas.</p>
+                <br><a href="#insider" class="btn btn-gold" style="margin-top:0.5rem;">Register for Early Access →</a>
+            </div>
+            <div class="fu">
+                <ul class="pipe-items">
+                    <li class="pipe-item">
+                        <div class="pi-dot"></div>
+                        <div><div class="pi-title">BMA Attribution Methodology — Technical White Paper</div><div class="pi-status">In Preparation · Insider Access · Hedge Fund Analytics</div></div>
+                    </li>
+                    <li class="pipe-item">
+                        <div class="pi-dot planned"></div>
+                        <div><div class="pi-title">Volatility Regime Surveillance — Cross-Asset Framework</div><div class="pi-status">Planned · Macro Allocation</div></div>
+                    </li>
+                    <li class="pipe-item">
+                        <div class="pi-dot planned"></div>
+                        <div><div class="pi-title">Geopolitical Shock Impact on Asset Classes</div><div class="pi-status">Planned · Insider Access · Macro Risk</div></div>
+                    </li>
+                    <li class="pipe-item">
+                        <div class="pi-dot planned"></div>
+                        <div><div class="pi-title">EUR/USD Fundamental Valuation Framework</div><div class="pi-status">Conceptual · FX Research</div></div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ── FOOTER ─────────────────────────────────────────────── -->
-<footer id="foot">
-    <div class="foot-inner">
+<!-- FOOTER -->
+<footer>
+    <div class="wrap">
         <div class="foot-top">
             <div>
                 <div class="foot-brand">NAME Analytical</div>
-                <p class="foot-desc">Independent Quantitative Research & Advisory Lab. Specialised in Risk-Driven Investment Methodologies and Hedge Fund Due Diligence.</p>
+                <p class="foot-desc">Independent Quantitative Due Diligence &amp; Macro Research. Built for institutional allocators. Based in Brussels, serving clients globally.</p>
             </div>
             <div>
-                <div class="foot-col-title">Navigation</div>
+                <div class="foot-col-t">Products</div>
                 <ul class="foot-links">
-                    <li><a href="index.html#mission">About</a></li>
-                    <li><a href="index.html#services">Services</a></li>
-                    <li><a href="index.html#process">Methodology</a></li>
-                    <li><a href="research.html">Research</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="due-diligence.html">DD Engine</a></li>
+                    <li><a href="research.html">Macro Research</a></li>
+                    <li><a href="research.html#insider">Insider Access</a></li>
                 </ul>
             </div>
             <div>
-                <div class="foot-col-title">Contact</div>
+                <div class="foot-col-t">Navigate</div>
+                <ul class="foot-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#asset-classes">Asset Classes</a></li>
+                    <li><a href="index.html#clients">Who We Serve</a></li>
+                    <li><a href="index.html#booking">Book a Call</a></li>
+                    <li><a href="index.html#contact">Submit Fund</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="foot-col-t">Contact</div>
                 <ul class="foot-links">
                     <li><a href="mailto:info@nameanalytical.com">info@nameanalytical.com</a></li>
                     <li>+32 489 97 61 16</li>
                     <li>Brussels, Belgium</li>
-                    <li><a href="https://www.nameanalytical.com">www.nameanalytical.com</a></li>
+                    <li><a href="https://www.nameanalytical.com">nameanalytical.com</a></li>
                 </ul>
             </div>
         </div>
@@ -765,33 +432,26 @@
 </footer>
 
 <script>
-    // Filter functionality
-    function filterPapers(category, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10));
 
-        document.querySelectorAll('.paper-card').forEach(card => {
-            const cat = card.dataset.category;
-            card.style.display = (category === 'all' || cat === category) ? '' : 'none';
-        });
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('vis'), i * 80); obs.unobserve(e.target); }});
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+
+    function filterPapers(cat, btn) {
+        document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.paper-card').forEach(c => { c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none'; });
     }
 
-    // Scroll animations
-    const fadeEls = document.querySelectorAll('.fade-up');
-    const obs = new IntersectionObserver((entries) => {
-        entries.forEach((e, i) => {
-            if (e.isIntersecting) {
-                setTimeout(() => e.target.classList.add('visible'), i * 100);
-                obs.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.1 });
-    fadeEls.forEach(el => obs.observe(el));
-
-    // Nav shadow
-    const nav = document.getElementById('topnav');
-    window.addEventListener('scroll', () => {
-        nav.style.boxShadow = window.scrollY > 10 ? '0 2px 20px rgba(0,0,0,0.07)' : 'none';
+    document.getElementById('insider-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('insider-email').value || '';
+        const subject = encodeURIComponent('Insider Research Access Request — NAME Analytical');
+        const body = encodeURIComponent('Hello,\n\nI would like to register for Insider Research Access.\n\nMy details:\nFull Name: \nJob Title: \nInstitution: \nInstitution Type: \nRegion: \nEmail: ' + email + '\n\nThank you.');
+        window.location.href = 'mailto:info@nameanalytical.com?subject=' + subject + '&body=' + body;
     });
 </script>
 </body>

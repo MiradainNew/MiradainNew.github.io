@@ -1,0 +1,508 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DD Engine | NAME Analytical</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --navy:#0f1e2d; --navy2:#172840; --gold:#b8924a; --gold-lt:#d4b07a;
+            --chalk:#f4f2ee; --white:#ffffff; --ink:#243040; --muted:#6b7c8d; --border:#dde3ea;
+            --ff-d:'Cormorant Garamond',Georgia,serif; --ff-b:'DM Sans',Helvetica,sans-serif;
+            --max:1180px; --pad:clamp(1.5rem,5vw,4rem);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--ff-b); font-weight: 300; color: var(--ink); background: var(--white); line-height: 1.7; font-size: 15px; }
+        a { color: inherit; text-decoration: none; }
+
+        /* NAV (shared) */
+        nav#nav { position:fixed; top:0; left:0; right:0; z-index:200; background:var(--white); border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding:0 var(--pad); height:66px; transition:box-shadow 0.3s; }
+        nav#nav.scrolled { box-shadow:0 2px 24px rgba(0,0,0,0.07); }
+        .nav-brand { display:flex; align-items:center; gap:13px; }
+        .nav-brand img { width:32px; opacity:0.9; }
+        .nav-firm { font-family:var(--ff-d); font-size:1.1rem; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--navy); }
+        .nav-tag { font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); font-weight:400; display:block; line-height:1; }
+        .nav-links { display:flex; align-items:center; gap:2rem; list-style:none; }
+        .nav-links a { font-size:0.71rem; letter-spacing:0.13em; text-transform:uppercase; color:var(--muted); transition:color 0.2s; }
+        .nav-links a:hover,.nav-links a.active { color:var(--navy); }
+        .nav-links .cta a { color:var(--navy); border:1px solid var(--navy); padding:7px 18px; font-size:0.67rem; transition:all 0.2s; }
+        .nav-links .cta a:hover { background:var(--navy); color:var(--white); }
+        .nav-links .cta2 a { background:var(--gold); color:var(--navy); border:1px solid var(--gold); padding:7px 18px; font-size:0.67rem; font-weight:500; transition:all 0.2s; }
+        .nav-links .cta2 a:hover { background:var(--gold-lt); }
+
+        /* PAGE HERO */
+        #phero { margin-top:66px; background:var(--navy); padding:clamp(4rem,9vw,8rem) var(--pad) clamp(3rem,6vw,5rem); position:relative; overflow:hidden; }
+        #phero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 75% 40%,rgba(184,146,74,0.08) 0%,transparent 55%); }
+        .phero-inner { max-width:var(--max); margin:0 auto; position:relative; z-index:2; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; }
+        .eyebrow { font-size:0.62rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); font-weight:400; margin-bottom:1.5rem; display:flex; align-items:center; gap:10px; }
+        .eyebrow::before { content:''; width:24px; height:1px; background:var(--gold); display:block; }
+        .phero h1 { font-family:var(--ff-d); font-size:clamp(2.4rem,4.5vw,4rem); font-weight:300; color:var(--white); line-height:1.08; }
+        .phero h1 em { font-style:italic; color:var(--gold-lt); }
+        .phero-r { font-size:0.91rem; color:rgba(255,255,255,0.55); line-height:1.8; }
+        .phero-meta { margin-top:1.4rem; display:flex; gap:2rem; flex-wrap:wrap; }
+        .pm-item { }
+        .pm-val { font-family:var(--ff-d); font-size:1.8rem; font-weight:300; color:var(--gold-lt); line-height:1; }
+        .pm-lbl { font-size:0.65rem; letter-spacing:0.13em; text-transform:uppercase; color:rgba(255,255,255,0.35); }
+
+        /* SECTION COMMONS */
+        section { padding:clamp(4rem,8vw,7rem) var(--pad); }
+        .wrap { max-width:var(--max); margin:0 auto; }
+        .s-label { font-size:0.62rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); font-weight:400; margin-bottom:1.1rem; display:flex; align-items:center; gap:10px; }
+        .s-label::before { content:''; width:22px; height:1px; background:var(--gold); display:block; }
+        .s-title { font-family:var(--ff-d); font-size:clamp(1.9rem,3.2vw,2.7rem); font-weight:300; color:var(--navy); line-height:1.12; }
+        .s-title em { font-style:italic; color:var(--gold); }
+        .s-body { font-size:0.9rem; color:var(--muted); line-height:1.8; max-width:520px; margin-top:0.9rem; }
+        .rule { width:44px; height:2px; background:var(--gold); margin:1.6rem 0; }
+        .btn { display:inline-block; font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase; font-weight:400; padding:12px 26px; cursor:pointer; transition:all 0.22s; }
+        .btn-gold { background:var(--gold); color:var(--navy); border:1px solid var(--gold); }
+        .btn-gold:hover { background:var(--gold-lt); }
+        .btn-outline { background:transparent; color:var(--navy); border:1px solid var(--border); }
+        .btn-outline:hover { border-color:var(--navy); }
+        .btn-ghost { background:transparent; color:var(--white); border:1px solid rgba(255,255,255,0.28); }
+        .btn-ghost:hover { border-color:rgba(255,255,255,0.7); }
+
+        /* PIPELINE: INPUT → PROCESS → OUTPUT */
+        #pipeline { background:var(--chalk); }
+        .pipeline-intro { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:4rem; }
+        .pipeline-flow { display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:0; align-items:stretch; }
+        .pipe-col { background:var(--white); border:1px solid var(--border); padding:2.4rem 2rem; }
+        .pipe-arrow { display:flex; align-items:center; justify-content:center; padding:0 0.8rem; color:var(--gold); font-size:1.4rem; }
+        .pipe-label { font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:1.2rem; font-weight:400; }
+        .pipe-title { font-family:var(--ff-d); font-size:1.4rem; font-weight:400; color:var(--navy); margin-bottom:1rem; }
+        .pipe-items { list-style:none; display:flex; flex-direction:column; gap:0.55rem; }
+        .pipe-items li { font-size:0.82rem; color:var(--muted); padding-left:1rem; position:relative; }
+        .pipe-items li::before { content:'·'; position:absolute; left:0; color:var(--gold); }
+
+        /* FIVE DIMENSIONS */
+        #dimensions { background:var(--white); }
+        .dim-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin-top:3.5rem; }
+        .dim-card { background:var(--white); padding:2.2rem 1.6rem; transition:background 0.25s; cursor:default; }
+        .dim-card:hover { background:var(--chalk); }
+        .dim-num { font-family:var(--ff-d); font-size:2.8rem; font-weight:300; color:rgba(184,146,74,0.15); line-height:1; margin-bottom:0.8rem; }
+        .dim-title { font-size:0.76rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--navy); font-weight:500; margin-bottom:0.7rem; }
+        .dim-text { font-size:0.8rem; color:var(--muted); line-height:1.7; }
+        .dim-metrics { margin-top:1rem; display:flex; flex-direction:column; gap:0.3rem; }
+        .dim-metric { font-size:0.72rem; color:var(--muted); padding-left:0.9rem; position:relative; }
+        .dim-metric::before { content:'→'; position:absolute; left:0; color:var(--gold); font-size:0.65rem; }
+
+        /* REPORT PREVIEW (no real data) */
+        #report-preview { background:var(--chalk); }
+        .rp-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+        .rp-mockup { background:var(--white); border:1px solid var(--border); padding:2.5rem; position:relative; }
+        .rp-header { border-bottom:1px solid var(--border); padding-bottom:1.2rem; margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:start; }
+        .rp-firm { font-family:var(--ff-d); font-size:1.1rem; font-weight:600; color:var(--navy); text-transform:uppercase; letter-spacing:0.07em; }
+        .rp-sub { font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); }
+        .rp-badge { font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); border:1px solid var(--border); padding:4px 10px; }
+        .rp-section-title { font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--navy); font-weight:500; margin-bottom:0.8rem; border-left:3px solid var(--gold); padding-left:0.7rem; }
+        .rp-kpi-row { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin-bottom:1.5rem; }
+        .rp-kpi { background:var(--chalk); padding:0.9rem 1rem; }
+        .rp-kpi-val { font-family:var(--ff-d); font-size:1.4rem; font-weight:300; color:var(--navy); }
+        .rp-kpi-lbl { font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
+        .rp-bar-row { display:flex; align-items:center; gap:0.8rem; margin-bottom:0.5rem; }
+        .rp-bar-lbl { font-size:0.72rem; color:var(--muted); width:100px; flex-shrink:0; }
+        .rp-bar-track { flex:1; height:6px; background:var(--border); border-radius:1px; }
+        .rp-bar-fill { height:100%; border-radius:1px; background:var(--gold); }
+        .rp-bar-val { font-size:0.72rem; color:var(--navy); width:40px; text-align:right; flex-shrink:0; }
+        .rp-confidential { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-30deg); font-family:var(--ff-d); font-size:3.5rem; font-weight:600; color:rgba(184,146,74,0.07); white-space:nowrap; pointer-events:none; letter-spacing:0.1em; text-transform:uppercase; }
+
+        /* USE CASES */
+        #use-cases { background:var(--white); }
+        .uc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin-top:3.5rem; }
+        .uc-card { background:var(--white); padding:2.4rem 2rem; transition:background 0.25s; }
+        .uc-card:hover { background:var(--chalk); }
+        .uc-persona { font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:1rem; }
+        .uc-title { font-family:var(--ff-d); font-size:1.35rem; font-weight:400; color:var(--navy); line-height:1.2; margin-bottom:0.9rem; }
+        .uc-text { font-size:0.83rem; color:var(--muted); line-height:1.75; }
+
+        /* SUBMIT CTA */
+        .submit-strip { background:var(--navy); padding:clamp(3.5rem,6vw,5.5rem) var(--pad); }
+        .submit-inner { max-width:var(--max); margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+        .si-eyebrow { font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:0.9rem; display:flex; align-items:center; gap:8px; }
+        .si-eyebrow::before { content:''; width:20px; height:1px; background:var(--gold); display:block; }
+        .si-title { font-family:var(--ff-d); font-size:clamp(1.8rem,3vw,2.5rem); font-weight:300; color:var(--white); line-height:1.12; margin-bottom:0.6rem; }
+        .si-title em { font-style:italic; color:var(--gold-lt); }
+        .si-sub { font-size:0.87rem; color:rgba(255,255,255,0.5); line-height:1.75; }
+        .submit-form-area { display:flex; flex-direction:column; gap:0; }
+        .sf-row { margin-bottom:0.9rem; }
+        .sf-row label { display:block; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:0.35rem; }
+        .sf-row input,.sf-row select { width:100%; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.05); padding:10px 13px; font-family:var(--ff-b); font-size:0.87rem; color:var(--white); outline:none; transition:border-color 0.2s; -webkit-appearance:none; }
+        .sf-row input::placeholder { color:rgba(255,255,255,0.25); }
+        .sf-row input:focus,.sf-row select:focus { border-color:var(--gold); }
+        .sf-row select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,0.4)'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; background-color:rgba(255,255,255,0.05); padding-right:34px; color:rgba(255,255,255,0.6); cursor:pointer; }
+        .sf-note { font-size:0.75rem; color:rgba(255,255,255,0.3); margin-top:0.8rem; line-height:1.6; }
+
+        /* FOOTER */
+        footer { background:var(--navy); color:rgba(255,255,255,0.5); padding:clamp(3rem,6vw,5rem) var(--pad) 2.5rem; border-top:1px solid rgba(255,255,255,0.06); }
+        .foot-top { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:3rem; padding-bottom:3rem; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:2rem; }
+        .foot-brand { font-family:var(--ff-d); font-size:1.05rem; font-weight:400; color:var(--white); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.7rem; }
+        .foot-desc { font-size:0.82rem; line-height:1.7; }
+        .foot-col-t { font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:1.1rem; }
+        .foot-links { list-style:none; display:flex; flex-direction:column; gap:0.55rem; }
+        .foot-links a { font-size:0.83rem; color:rgba(255,255,255,0.5); transition:color 0.2s; }
+        .foot-links a:hover { color:var(--white); }
+        .foot-bottom { display:flex; justify-content:space-between; align-items:center; font-size:0.74rem; }
+        .foot-bottom .gold { color:var(--gold); }
+
+        /* FADE */
+        .fu { opacity:0; transform:translateY(22px); transition:opacity 0.6s ease,transform 0.6s ease; }
+        .fu.vis { opacity:1; transform:none; }
+
+        /* RESPONSIVE */
+        @media (max-width:960px) {
+            .phero-inner,.pipeline-intro,.rp-grid,.submit-inner,.foot-top { grid-template-columns:1fr; gap:2.5rem; }
+            .pipeline-flow { grid-template-columns:1fr; }
+            .pipe-arrow { transform:rotate(90deg); padding:0.6rem 0; }
+            .dim-grid,.uc-grid { grid-template-columns:1fr 1fr; }
+            .nav-links .cta,.nav-links .cta2 { display:none; }
+            .nav-links { gap:1.2rem; }
+        }
+        @media (max-width:600px) {
+            .nav-links { display:none; }
+            .dim-grid,.uc-grid { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+    <div class="nav-brand">
+        <img src="NAME_without_text1.png" alt="NAME Analytical" />
+        <div>
+            <span class="nav-firm">NAME Analytical</span>
+            <span class="nav-tag">Independent Analytics · Institutional Rigor</span>
+        </div>
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html#products">Products</a></li>
+        <li><a href="index.html#asset-classes">Asset Classes</a></li>
+        <li><a href="index.html#clients">Who We Serve</a></li>
+        <li><a href="due-diligence.html" class="active">DD Engine</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="index.html#booking">Book a Call</a></li>
+        <li class="cta2"><a href="#submit">Submit Fund</a></li>
+    </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<div id="phero">
+    <div class="phero-inner">
+        <div>
+            <div class="eyebrow">Core Product · Quantitative Due Diligence</div>
+            <h1>Hedge Fund Risk &amp;<br><em>Behavior Diagnostic™</em></h1>
+        </div>
+        <div class="phero-r">
+            <p>A structured, allocator-grade quantitative assessment of any hedge fund strategy. We transform raw return data into a multi-dimensional diagnostic — revealing what actually drives performance, how the strategy behaves under stress, and whether the manager's narrative holds up to scrutiny.</p>
+            <div class="phero-meta">
+                <div class="pm-item"><div class="pm-val">5</div><div class="pm-lbl">Analytical Dimensions</div></div>
+                <div class="pm-item"><div class="pm-val">11</div><div class="pm-lbl">Crisis Scenarios Tested</div></div>
+                <div class="pm-item"><div class="pm-val">20+</div><div class="pm-lbl">Risk Factors in Universe</div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PIPELINE -->
+<section id="pipeline">
+    <div class="wrap">
+        <div class="pipeline-intro fu">
+            <div>
+                <div class="s-label">How It Works</div>
+                <h2 class="s-title">Input → Process<br><em>→ Diagnostic Report</em></h2>
+            </div>
+            <p class="s-body">Our pipeline is built for practicality. You provide the data you already have — we deliver an institutional-grade report. No proprietary data feed required.</p>
+        </div>
+        <div class="pipeline-flow fu">
+            <!-- INPUT -->
+            <div class="pipe-col">
+                <div class="pipe-label">Input</div>
+                <div class="pipe-title">What You Send Us</div>
+                <ul class="pipe-items">
+                    <li>Monthly net returns (since inception)</li>
+                    <li>Fund fact sheet (optional, enriching)</li>
+                    <li>Strategy description or pitch deck</li>
+                    <li>Benchmark / peer group preference</li>
+                </ul>
+            </div>
+            <div class="pipe-arrow">→</div>
+            <!-- PROCESS -->
+            <div class="pipe-col">
+                <div class="pipe-label">Process</div>
+                <div class="pipe-title">What We Run</div>
+                <ul class="pipe-items">
+                    <li>Return distribution &amp; behavioral diagnostics</li>
+                    <li>BMA factor decomposition (20+ factors)</li>
+                    <li>Rolling 36-month style stability analysis</li>
+                    <li>Crisis scenario back-testing (11 events)</li>
+                    <li>Drawdown profiling &amp; recovery dynamics</li>
+                    <li>Peer benchmarking via HFX indices</li>
+                </ul>
+            </div>
+            <div class="pipe-arrow">→</div>
+            <!-- OUTPUT -->
+            <div class="pipe-col">
+                <div class="pipe-label">Output</div>
+                <div class="pipe-title">What You Receive</div>
+                <ul class="pipe-items">
+                    <li>Confidential PDF diagnostic report</li>
+                    <li>Executive attribution summary</li>
+                    <li>Regime sensitivity &amp; stress tables</li>
+                    <li>Factor coefficient stability charts</li>
+                    <li>Analyst commentary &amp; key findings</li>
+                    <li>Data &amp; methodology references</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FIVE DIMENSIONS -->
+<section id="dimensions">
+    <div class="wrap">
+        <div class="fu" style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:3.5rem;">
+            <div>
+                <div class="s-label">Analytical Framework</div>
+                <h2 class="s-title">Five Dimensions of<br><em>Fund Diagnostics</em></h2>
+            </div>
+            <p class="s-body">Each dimension addresses a distinct question that institutional allocators need answered — from raw performance quality to crisis behavior and peer positioning.</p>
+        </div>
+        <div class="dim-grid fu">
+            <div class="dim-card">
+                <div class="dim-num">01</div>
+                <div class="dim-title">Risk Fingerprint</div>
+                <p class="dim-text">A high-level assessment of the strategy's realized return distribution and capital preservation history — the performance narrative since inception.</p>
+                <div class="dim-metrics">
+                    <div class="dim-metric">Annualised return &amp; Sharpe</div>
+                    <div class="dim-metric">MAR / Calmar ratio</div>
+                    <div class="dim-metric">Drawdown chronology</div>
+                    <div class="dim-metric">Monthly hit rate</div>
+                </div>
+            </div>
+            <div class="dim-card">
+                <div class="dim-num">02</div>
+                <div class="dim-title">Factor Attribution</div>
+                <p class="dim-text">BMA decomposes returns into Market Beta, Style Premia, and Convexity/Tail exposure — isolating genuine alpha from systematic market drivers.</p>
+                <div class="dim-metrics">
+                    <div class="dim-metric">BMA factor selection</div>
+                    <div class="dim-metric">Alpha significance (p-value)</div>
+                    <div class="dim-metric">Risk contribution by factor</div>
+                    <div class="dim-metric">R² model fit</div>
+                </div>
+            </div>
+            <div class="dim-card">
+                <div class="dim-num">03</div>
+                <div class="dim-title">Peer Benchmarking</div>
+                <p class="dim-text">Relative evaluation against relevant HFX hedge fund strategy indices — assessing return efficiency and regime sensitivity versus the peer universe.</p>
+                <div class="dim-metrics">
+                    <div class="dim-metric">Return vs tail risk chart</div>
+                    <div class="dim-metric">Regime-conditional returns</div>
+                    <div class="dim-metric">Skew &amp; VaR comparison</div>
+                    <div class="dim-metric">Drawdown vs peers</div>
+                </div>
+            </div>
+            <div class="dim-card">
+                <div class="dim-num">04</div>
+                <div class="dim-title">Crisis Scenario Testing</div>
+                <p class="dim-text">Targeted stress testing across 11 defined historical crisis windows — from the 2018 Trade War to the 2025 Tariff Shock — revealing regime vulnerabilities.</p>
+                <div class="dim-metrics">
+                    <div class="dim-metric">Crisis-period returns</div>
+                    <div class="dim-metric">Hit rate across scenarios</div>
+                    <div class="dim-metric">Benchmark outperformance</div>
+                    <div class="dim-metric">Best / worst scenario</div>
+                </div>
+            </div>
+            <div class="dim-card">
+                <div class="dim-num">05</div>
+                <div class="dim-title">Drawdown Analysis</div>
+                <p class="dim-text">Full drawdown profile decomposition — mapping peak-to-trough episodes, recovery velocities, and underwater periods across all market regimes.</p>
+                <div class="dim-metrics">
+                    <div class="dim-metric">All DD episodes</div>
+                    <div class="dim-metric">Median &amp; worst DD</div>
+                    <div class="dim-metric">Recovery months</div>
+                    <div class="dim-metric">Crisis-window drawdowns</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- REPORT MOCKUP -->
+<section id="report-preview">
+    <div class="wrap">
+        <div class="rp-grid">
+            <div class="fu">
+                <div class="s-label">Report Format</div>
+                <h2 class="s-title">What the<br><em>Report Looks Like</em></h2>
+                <div class="rule"></div>
+                <p class="s-body">Each diagnostic report is a confidential, institutional-grade PDF prepared exclusively for the commissioning party. The fund under review and all data are treated as strictly confidential.</p>
+                <br>
+                <p class="s-body">Reports are structured around the five analytical dimensions, with an executive summary, charts, detailed factor tables, rolling attribution, and analyst commentary.</p>
+                <br>
+                <a href="#submit" class="btn btn-gold" style="margin-top:0.5rem;">Request a Sample Scope →</a>
+            </div>
+            <div class="fu">
+                <div class="rp-mockup">
+                    <div class="rp-confidential">Confidential</div>
+                    <div class="rp-header">
+                        <div>
+                            <div class="rp-firm">NAME Analytical</div>
+                            <div class="rp-sub">Hedge Fund Risk &amp; Behavior Diagnostic™</div>
+                        </div>
+                        <div class="rp-badge">Confidential</div>
+                    </div>
+                    <div class="rp-section-title">Strategy Risk Fingerprint</div>
+                    <div class="rp-kpi-row">
+                        <div class="rp-kpi"><div class="rp-kpi-val">X.XX%</div><div class="rp-kpi-lbl">Ann. Return</div></div>
+                        <div class="rp-kpi"><div class="rp-kpi-val">X.XX</div><div class="rp-kpi-lbl">Sharpe Ratio</div></div>
+                        <div class="rp-kpi"><div class="rp-kpi-val">−X.X%</div><div class="rp-kpi-lbl">Max Drawdown</div></div>
+                    </div>
+                    <div class="rp-section-title">Factor Attribution</div>
+                    <div class="rp-bar-row"><div class="rp-bar-lbl">Market Beta</div><div class="rp-bar-track"><div class="rp-bar-fill" style="width:35%"></div></div><div class="rp-bar-val">X.X%</div></div>
+                    <div class="rp-bar-row"><div class="rp-bar-lbl">Style Premia</div><div class="rp-bar-track"><div class="rp-bar-fill" style="width:28%;background:var(--navy)"></div></div><div class="rp-bar-val">X.X%</div></div>
+                    <div class="rp-bar-row"><div class="rp-bar-lbl">Convexity</div><div class="rp-bar-track"><div class="rp-bar-fill" style="width:48%"></div></div><div class="rp-bar-val">X.X%</div></div>
+                    <div class="rp-bar-row"><div class="rp-bar-lbl">Alpha</div><div class="rp-bar-track"><div class="rp-bar-fill" style="width:12%;background:#e05252"></div></div><div class="rp-bar-val">−X.X%</div></div>
+                    <div style="margin-top:1.5rem; padding-top:1.2rem; border-top:1px solid var(--border);">
+                        <div class="rp-section-title">Analyst Commentary</div>
+                        <div style="font-size:0.78rem; color:var(--muted); line-height:1.7; font-style:italic;">« The strategy's performance is largely explained by systematic risk premia. Rolling betas indicate controlled, regime-driven allocation shifts rather than erratic style drift... »</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- USE CASES -->
+<section id="use-cases">
+    <div class="wrap">
+        <div class="fu" style="margin-bottom:0;">
+            <div class="s-label">Use Cases</div>
+            <h2 class="s-title">Built for <em>Selection &amp; Monitoring</em></h2>
+        </div>
+        <div class="uc-grid fu">
+            <div class="uc-card">
+                <div class="uc-persona">Fund Selection · Family Office / FoF</div>
+                <div class="uc-title">Do we understand this manager before we allocate?</div>
+                <p class="uc-text">Before committing capital, you need to understand what you are actually buying. Our diagnostic answers the key questions: Is performance real or factor-driven? How has the strategy behaved in every crisis since inception? Does it behave consistently with the manager's description?</p>
+            </div>
+            <div class="uc-card">
+                <div class="uc-persona">Monitoring · Allocator Desk / FoF</div>
+                <div class="uc-title">Has this manager changed since we invested?</div>
+                <p class="uc-text">Rolling attribution and style stability analysis detect regime-driven shifts or unannounced strategy changes. We identify whether a manager is adapting intelligently or drifting outside their stated mandate — before it shows up in returns.</p>
+            </div>
+            <div class="uc-card">
+                <div class="uc-persona">Portfolio Risk · Allocator Desk</div>
+                <div class="uc-title">Are all our managers taking the same risk?</div>
+                <p class="uc-text">At portfolio level, we assess factor concentration across holdings — identifying whether multiple funds share hidden exposures (e.g., all long carry, all high-volatility) that create systemic risk pockets invisible at the individual fund level.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SUBMIT FUND CTA -->
+<div class="submit-strip" id="submit">
+    <div class="submit-inner">
+        <div>
+            <div class="si-eyebrow">Fund Submission</div>
+            <div class="si-title">Submit a Fund for<br><em>Independent Analysis</em></div>
+            <div class="si-sub" style="margin-top:1rem;">All submissions are strictly confidential. We do not share fund data or analysis with any third party. Turnaround is typically 5–10 business days depending on the scope.</div>
+            <div style="margin-top:2rem;">
+                <a href="index.html#booking" class="btn btn-ghost" style="margin-right:10px;">Book a Scoping Call</a>
+            </div>
+        </div>
+        <div class="submit-form-area">
+            <div class="sf-row"><label>Your Name</label><input type="text" placeholder="Full name" /></div>
+            <div class="sf-row"><label>Institution</label><input type="text" placeholder="Firm name" /></div>
+            <div class="sf-row"><label>Email Address</label><input id="submit-email" type="email" placeholder="you@institution.com" /></div>
+            <div class="sf-row"><label>Institution Type</label>
+                <select>
+                    <option value="">— Select —</option>
+                    <option>Family Office</option>
+                    <option>Fund of Funds</option>
+                    <option>Allocator Desk (Bank / Insurer / Pension)</option>
+                    <option>Asset Manager</option>
+                    <option>HNWI / Private Investor</option>
+                    <option>Foundation / Endowment</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="sf-row"><label>Purpose</label>
+                <select>
+                    <option value="">— Select —</option>
+                    <option>Fund Selection (Pre-Allocation)</option>
+                    <option>Ongoing Monitoring</option>
+                    <option>Portfolio-Level Risk Review</option>
+                    <option>Other / Not Sure Yet</option>
+                </select>
+            </div>
+            <div style="margin-top:0.6rem;">
+                <a id="submit-btn" href="#" class="btn btn-gold">Submit &amp; Send Fact Sheet →</a>
+            </div>
+            <p class="sf-note">Clicking this button will open your email client to send your submission to info@nameanalytical.com. Attach your fact sheet or returns file to that email.</p>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="wrap">
+        <div class="foot-top">
+            <div>
+                <div class="foot-brand">NAME Analytical</div>
+                <p class="foot-desc">Independent Quantitative Due Diligence &amp; Macro Research. Built for institutional allocators. Based in Brussels, serving clients globally.</p>
+            </div>
+            <div>
+                <div class="foot-col-t">Products</div>
+                <ul class="foot-links">
+                    <li><a href="due-diligence.html">DD Engine</a></li>
+                    <li><a href="research.html">Macro Research</a></li>
+                    <li><a href="research.html#insider">Insider Research</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="foot-col-t">Navigate</div>
+                <ul class="foot-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#asset-classes">Asset Classes</a></li>
+                    <li><a href="index.html#clients">Who We Serve</a></li>
+                    <li><a href="index.html#booking">Book a Call</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="foot-col-t">Contact</div>
+                <ul class="foot-links">
+                    <li><a href="mailto:info@nameanalytical.com">info@nameanalytical.com</a></li>
+                    <li>+32 489 97 61 16</li>
+                    <li>Brussels, Belgium</li>
+                    <li><a href="https://www.nameanalytical.com">nameanalytical.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="foot-bottom">
+            <span>&copy; 2025 NAME Analytical. All Rights Reserved. Confidential — For Institutional Use Only.</span>
+            <span class="gold">Independent Analytics. Institutional Rigor.</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10));
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('vis'), i * 80); obs.unobserve(e.target); }});
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+
+    document.getElementById('submit-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('submit-email').value || '';
+        const subject = encodeURIComponent('Fund Submission for DD Analysis — NAME Analytical');
+        const body = encodeURIComponent('Hello,\n\nI would like to submit a fund for your Hedge Fund Risk & Behavior Diagnostic™.\n\nMy details:\nName: \nInstitution: \nInstitution Type: \nEmail: ' + email + '\n\nPurpose: [Selection / Monitoring / Portfolio Review]\n\nFund name (if shareable): \nAdditional context: \n\n[Please attach the fact sheet or monthly returns file to this email]\n\nThank you.');
+        window.location.href = 'mailto:info@nameanalytical.com?subject=' + subject + '&body=' + body;
+    });
+</script>
+</body>
+</html>
